@@ -3,7 +3,7 @@ package pizzaria;
 /**
  *
  * @author Bruno Reyller
- * @author Marina Mergulh„o
+ * @author Marina Perceb√£o
  * @author Gabriel Kiciolar
  */
 public class Pizzaria {
