@@ -30,4 +30,14 @@ CHARACTER SET = latin1
 COLLATE = latin1_swedish_ci
 ENGINE = InnoDB;
 
+DROP TABLE IF EXISTS `mesa` CASCADE;
+
+CREATE TABLE `mesa` ( 
+	`id` INT(11) UNSIGNED NOT NULL,
+	`numero` SMALLINT(5) UNSIGNED NOT NULL,
+	`qtd_lugares` TINYINT(3) UNSIGNED NOT NULL,
+	PRIMARY KEY (`id`))
+CHARACTER SET = latin1
+COLLATE = latin1_swedish_ci
+ENGINE = InnoDB;
 
