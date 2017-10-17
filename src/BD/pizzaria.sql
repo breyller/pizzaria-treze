@@ -89,3 +89,20 @@ CREATE TABLE `receita` (
 CHARACTER SET = latin1
 COLLATE = latin1_swedish_ci
 ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `pedido` CASCADE;
+
+CREATE TABLE `pedido` (
+	`id` BIGINT(20) UNSIGNED NOT NULL,
+	`data` DATETIME NOT NULL,
+	`status` TINYINT(3) NOT NULL,
+	`descricao` VARCHAR(255) NOT NULL,
+	`tipo` TINYINT(3) NOT NULL,
+	`preco` DOUBLE(2, 0) NOT NULL,
+	`id_cliente` INT(11) UNSIGNED NOT NULL,
+	`id_funcionario` INT(11) UNSIGNED NOT NULL,
+	`composicao` VARCHAR(255) NOT NULL,
+	PRIMARY KEY (`id`))
+CHARACTER SET = latin1
+COLLATE = latin1_swedish_ci
+ENGINE = InnoDB;
