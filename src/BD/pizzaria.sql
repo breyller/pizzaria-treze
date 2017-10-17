@@ -2,15 +2,32 @@ CREATE DATABASE IF NOT EXISTS pizzaria;
 
 USE pizzaria;
 
-DROP TABLE `cliente`;
+DROP TABLE IF EXISTS `cliente` CASCADE;
 
 CREATE IF NOT EXISTS TABLE `cliente` ( 
-	`id` Int( 11 ) UNSIGNED NOT NULL,
-	`nome` VarChar( 127 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`endereco` VarChar( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`telefone` VarChar( 15 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-	`cpf` VarChar( 15 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+	`id` INT(11) UNSIGNED NOT NULL,
+	`nome` VARCHAR(127) NOT NULL,
+	`endereco` VARCHAR(255) NOT NULL,
+	`telefone` VARCHAR(15) NOT NULL,
+	`cpf` VARCHAR(15) NOT NULL,
 	PRIMARY KEY ( `id` ) )
 CHARACTER SET = latin1
 COLLATE = latin1_swedish_ci
 ENGINE = InnoDB;
+
+
+DROP TABLE IF EXISTS `funcionario` CASCADE;
+
+CREATE TABLE `funcionario` ( 
+	`id` INT(11) UNSIGNED NOT NULL,
+	`nome` VARCHAR( 127 ) NOT NULL,
+	`endereco` VARCHAR( 255 ) NOT NULL,
+	`telefone` VARCHAR( 15 ) NOT NULL,
+	`cpf` VARCHAR( 15 ) NOT NULL,
+	`cargo` VARCHAR( 31 ) NOT NULL,
+	PRIMARY KEY ( `id` ) )
+CHARACTER SET = latin1
+COLLATE = latin1_swedish_ci
+ENGINE = InnoDB;
+
+
