@@ -65,3 +65,15 @@ CREATE TABLE `ingrediente` (
 CHARACTER SET = latin1
 COLLATE = latin1_swedish_ci
 ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `produto` CASCADE;
+
+CREATE TABLE `produto` (
+	`id` INT(11) UNSIGNED NOT NULL,
+	`preco` DOUBLE(2, 0) NOT NULL,
+	`nome` VARCHAR(127) NOT NULL,
+	`composicao` VARCHAR(511) NOT NULL,
+	PRIMARY KEY (`id`))
+CHARACTER SET = latin1
+COLLATE = latin1_swedish_ci
+ENGINE = InnoDB;
