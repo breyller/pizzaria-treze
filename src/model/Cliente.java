@@ -1,14 +1,12 @@
 package model;
-/**
- *
- * @author gabriel
- */
+
 public class Cliente {
     
-    private int id;
+    private int id = 0;
     private String telefone;
     private String nome;
     private String endereco;
+    private String cpf;
 
     public int getId() {
         return id;
@@ -42,7 +40,12 @@ public class Cliente {
         this.endereco = endereco;
     }
     
+    public String getCpf() {
+        return cpf;
+    }
 
-
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
     
 }
