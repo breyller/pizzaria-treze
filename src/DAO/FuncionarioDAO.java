@@ -15,7 +15,7 @@ public class FuncionarioDAO {
     private Connection con = null;
     
     public Funcionario getById(int id) {
-        funcionario = null;
+        this.funcionario = null;
         PreparedStatement ps = null;
         
         try {
@@ -24,12 +24,15 @@ public class FuncionarioDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                funcionario = new Funcionario();
-                funcionario.setId(rs.getInt("id"));
-                funcionario.setTelefone(rs.getString("telefone"));
-                funcionario.setNome(rs.getString("nome"));
-                funcionario.setEndereco(rs.getString("endereco"));
-                return funcionario;
+                this.funcionario = new Funcionario();
+                this.funcionario.setId(rs.getInt("id"));
+                this.funcionario.setTelefone(rs.getString("telefone"));
+                this.funcionario.setNome(rs.getString("nome"));
+                this.funcionario.setEndereco(rs.getString("endereco"));
+                this.funcionario.setSalario(rs.getDouble("salario"));
+                this.funcionario.setCpf(rs.getString("cpf"));
+                this.funcionario.setCargo(rs.getString("cargo"));
+                return this.funcionario;
             } else {
                 return null;
             }
@@ -48,8 +51,8 @@ public class FuncionarioDAO {
     }
     
     public ArrayList<Funcionario> getByNome(String nome) {
-        funcionarios.clear();
-        funcionario = null;
+        this.funcionarios.clear();
+        this.funcionario = null;
         PreparedStatement ps = null;
         
         try {
@@ -63,13 +66,16 @@ public class FuncionarioDAO {
             }
             
             do {
-                funcionario = new Funcionario();
-                funcionario.setId(rs.getInt("id"));
-                funcionario.setTelefone(rs.getString("telefone"));
-                funcionario.setNome(rs.getString("nome"));
-                funcionario.setEndereco(rs.getString("endereco"));
-                funcionarios.add(funcionario);
-                return funcionarios;
+                this.funcionario = new Funcionario();
+                this.funcionario.setId(rs.getInt("id"));
+                this.funcionario.setTelefone(rs.getString("telefone"));
+                this.funcionario.setNome(rs.getString("nome"));
+                this.funcionario.setEndereco(rs.getString("endereco"));
+                this.funcionario.setSalario(rs.getDouble("salario"));
+                this.funcionario.setCpf(rs.getString("cpf"));
+                this.funcionario.setCargo(rs.getString("cargo"));
+                this.funcionarios.add(this.funcionario);
+                return this.funcionarios;
             } while (rs.next());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,8 +92,8 @@ public class FuncionarioDAO {
     }
 
     public ArrayList<Funcionario> getByTelefone(String telefone) {
-        funcionarios.clear();
-        funcionario = null;
+        this.funcionarios.clear();
+        this.funcionario = null;
         PreparedStatement ps = null;
         
         try {
@@ -101,13 +107,16 @@ public class FuncionarioDAO {
             }
             
             do {
-                funcionario = new Funcionario();
-                funcionario.setId(rs.getInt("id"));
-                funcionario.setTelefone(rs.getString("telefone"));
-                funcionario.setNome(rs.getString("nome"));
-                funcionario.setEndereco(rs.getString("endereco"));
-                funcionarios.add(funcionario);
-                return funcionarios;
+                this.funcionario = new Funcionario();
+                this.funcionario.setId(rs.getInt("id"));
+                this.funcionario.setTelefone(rs.getString("telefone"));
+                this.funcionario.setNome(rs.getString("nome"));
+                this.funcionario.setEndereco(rs.getString("endereco"));
+                this.funcionario.setSalario(rs.getDouble("salario"));
+                this.funcionario.setCpf(rs.getString("cpf"));
+                this.funcionario.setCargo(rs.getString("cargo"));                
+                this.funcionarios.add(this.funcionario);
+                return this.funcionarios;
             } while (rs.next());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -131,14 +140,16 @@ public class FuncionarioDAO {
         if(funcionario.getId() != 0) {
             Funcionario funcionarioBD = this.getById(funcionario.getId());
             if(funcionarioBD != null) {
-                query = "UPDATE funcionario SET nome = ?, telefone = ?, cpf = ?, endereco = ? WHERE id = ?";
+                query = "UPDATE funcionario SET nome = ?, telefone = ?, cpf = ?, endereco = ?, cargo = ?, salario = ? WHERE id = ?";
                 try {
                     ps = Conexao.getConexao().prepareStatement(query);
                     ps.setString(1, funcionario.getNome());
                     ps.setString(2, funcionario.getTelefone());
                     ps.setString(3, funcionario.getCpf());
                     ps.setString(4, funcionario.getEndereco());
-                    ps.setInt(5, funcionario.getId());
+                    ps.setString(5, funcionario.getCargo());
+                    ps.setDouble(6, funcionario.getSalario());
+                    ps.setInt(7, funcionario.getId());
                     ps.executeUpdate();
                     
                     return "Funcionario atualizado com sucesso.";
@@ -149,19 +160,21 @@ public class FuncionarioDAO {
         }
         
         try {
-            query = funcionario.getId() != 0 ? "INSERT INTO funcionario(nome, telefone, cpf, endereco, id) VALUES (?,?,?,?,?)" : "INSERT INTO funcionario(nome, telefone, cpf, endereco) VALUES (?,?,?,?)";
+            query = funcionario.getId() != 0 ? "INSERT INTO funcionario(nome, telefone, cpf, endereco, cargo, salario, id) VALUES (?,?,?,?,?,?,?)" : "INSERT INTO funcionario(nome, telefone, cpf, endereco, cargo, salario) VALUES (?,?,?,?,?,?)";
             ps = Conexao.getConexao().prepareStatement(query);
             ps.setString(1, funcionario.getNome());
             ps.setString(2, funcionario.getTelefone());
             ps.setString(3, funcionario.getCpf());
             ps.setString(4, funcionario.getEndereco());
+            ps.setString(5, funcionario.getCargo());
+            ps.setDouble(6, funcionario.getSalario());
             if(funcionario.getId() != 0) {
-                ps.setInt(5, funcionario.getId());
+                ps.setInt(7, funcionario.getId());
             }
             ps.executeUpdate();
             result = "Funcionario criado com sucesso.";
         } catch (SQLException ex) {
-            return "Erro ao atualizar funcionario: " + ex.getMessage();
+            return "Erro ao inserir funcionario: " + ex.getMessage();
         }
         
         return result;

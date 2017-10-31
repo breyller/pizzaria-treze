@@ -9,12 +9,13 @@ import model.Cliente;
 import java.util.ArrayList;
 
 public class ClienteDAO {
+    
     private ArrayList<Cliente> clientes = null;
     private Cliente cliente = null;
     private Connection con = null;
     
     public Cliente getById(int id) {
-        cliente = null;
+        this.cliente = null;
         PreparedStatement ps = null;
         
         try {
@@ -23,12 +24,12 @@ public class ClienteDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                cliente = new Cliente();
-                cliente.setId(rs.getInt("id"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setEndereco(rs.getString("endereco"));
-                return cliente;
+                this.cliente = new Cliente();
+                this.cliente.setId(rs.getInt("id"));
+                this.cliente.setTelefone(rs.getString("telefone"));
+                this.cliente.setNome(rs.getString("nome"));
+                this.cliente.setEndereco(rs.getString("endereco"));
+                return this.cliente;
             } else {
                 return null;
             }
@@ -47,8 +48,8 @@ public class ClienteDAO {
     }
     
     public ArrayList<Cliente> getByNome(String nome) {
-        clientes.clear();
-        cliente = null;
+        this.clientes.clear();
+        this.cliente = null;
         PreparedStatement ps = null;
         
         try {
@@ -62,13 +63,13 @@ public class ClienteDAO {
             }
             
             do {
-                cliente = new Cliente();
-                cliente.setId(rs.getInt("id"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setEndereco(rs.getString("endereco"));
-                clientes.add(cliente);
-                return clientes;
+                this.cliente = new Cliente();
+                this.cliente.setId(rs.getInt("id"));
+                this.cliente.setTelefone(rs.getString("telefone"));
+                this.cliente.setNome(rs.getString("nome"));
+                this.cliente.setEndereco(rs.getString("endereco"));
+                this.clientes.add(this.cliente);
+                return this.clientes;
             } while (rs.next());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -85,8 +86,8 @@ public class ClienteDAO {
     }
 
     public ArrayList<Cliente> getByTelefone(String telefone) {
-        clientes.clear();
-        cliente = null;
+        this.clientes.clear();
+        this.cliente = null;
         PreparedStatement ps = null;
         
         try {
@@ -100,13 +101,13 @@ public class ClienteDAO {
             }
             
             do {
-                cliente = new Cliente();
-                cliente.setId(rs.getInt("id"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setEndereco(rs.getString("endereco"));
-                clientes.add(cliente);
-                return clientes;
+                this.cliente = new Cliente();
+                this.cliente.setId(rs.getInt("id"));
+                this.cliente.setTelefone(rs.getString("telefone"));
+                this.cliente.setNome(rs.getString("nome"));
+                this.cliente.setEndereco(rs.getString("endereco"));
+                this.clientes.add(this.cliente);
+                return this.clientes;
             } while (rs.next());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -160,7 +161,7 @@ public class ClienteDAO {
             ps.executeUpdate();
             result = "Cliente criado com sucesso.";
         } catch (SQLException ex) {
-            return "Erro ao atualizar cliente: " + ex.getMessage();
+            return "Erro ao inserir cliente: " + ex.getMessage();
         }
         
         return result;

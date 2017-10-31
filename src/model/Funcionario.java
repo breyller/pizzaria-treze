@@ -1,14 +1,14 @@
 package model;
 
 public class Funcionario extends Pessoa {
-    private float salario;
+    private double salario;
     private String cargo;
 
-    public float getSalario() {
+    public double getSalario() {
         return salario;
     }
 
-    public void setSalario(float salario) {
+    public void setSalario(double salario) {
         this.salario = salario;
     }
 

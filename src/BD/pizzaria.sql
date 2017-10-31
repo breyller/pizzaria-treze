@@ -140,3 +140,5 @@ ALTER TABLE `pedido`
 	REFERENCES `funcionario`(`id`)
 	ON DELETE CASCADE
 	ON UPDATE CASCADE;
+
+ALTER TABLE `funcionario` ADD COLUMN `salario` DOUBLE NOT NULL;
