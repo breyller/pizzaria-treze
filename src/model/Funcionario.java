@@ -1,21 +1,8 @@
 package model;
 
-/**
- *
- * @author gabriel
- */
-public class Funcionario {
-    private int id;
+public class Funcionario extends Pessoa {
     private float salario;
     private String cargo;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public float getSalario() {
         return salario;
@@ -32,7 +19,4 @@ public class Funcionario {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
-    
-    
-    
 }
