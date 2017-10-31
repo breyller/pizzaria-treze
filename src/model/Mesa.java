@@ -1,27 +1,34 @@
 package model;
-
+import java.util.ArrayList;
 
 public class Mesa {
+    private int id;
     private int numero;
     private int qtdLugares;
-    private boolean status = true;
-    private int codReserva;
-
-    public int getCodReserva() {
+    private ArrayList<Integer> codReserva = new ArrayList<Integer>();
+    
+    public ArrayList<Integer> getCodReserva() {
         return codReserva;
     }
 
     public void setCodReserva(int codReserva) {
-        this.codReserva = codReserva;
+        this.codReserva.add(codReserva);
     }
     
-
     public int getNumero() {
         return numero;
     }
 
     public void setNumero(int numero) {
         this.numero = numero;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getQtdLugares() {
@@ -31,15 +38,5 @@ public class Mesa {
     public void setQtdLugares(int qtdLugares) {
         this.qtdLugares = qtdLugares;
     }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-    
-    
-    
+        
 }
