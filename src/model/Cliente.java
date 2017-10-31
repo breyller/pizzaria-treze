@@ -1,14 +1,12 @@
 package model;
-/**
- *
- * @author gabriel
- */
+
 public class Cliente {
     
-    private int id;
-    private long telefone;
+    private int id = 0;
+    private String telefone;
     private String nome;
-    private String enderco;
+    private String endereco;
+    private String cpf;
 
     public int getId() {
         return id;
@@ -18,11 +16,11 @@ public class Cliente {
         this.id = id;
     }
 
-    public long getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(long telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -34,15 +32,20 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getEnderco() {
-        return enderco;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setEnderco(String enderco) {
-        this.enderco = enderco;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
     
+    public String getCpf() {
+        return cpf;
+    }
 
-
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
     
 }
