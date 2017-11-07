@@ -1,14 +1,11 @@
 package model;
 
-/**
- *
- * @author gabriel
- */
 public class Ingrediente {
     private int id;
     private String nome;
+    private String descricao;
     private int quantidade;
-    private float valor;
+    private double valor;
 
     public int getId() {
         return id;
@@ -34,14 +31,20 @@ public class Ingrediente {
         this.quantidade = quantidade;
     }
 
-    public float getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
     
-    
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
     
 }
