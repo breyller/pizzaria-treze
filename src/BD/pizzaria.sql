@@ -142,3 +142,5 @@ ALTER TABLE `pedido`
 	ON UPDATE CASCADE;
 
 ALTER TABLE `funcionario` ADD COLUMN `salario` DOUBLE NOT NULL;
+
+ALTER TABLE `mesa` ADD COLUMN `reservas` TEXT NULL;
