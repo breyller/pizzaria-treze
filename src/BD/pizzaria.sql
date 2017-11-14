@@ -144,3 +144,5 @@ ALTER TABLE `pedido`
 ALTER TABLE `funcionario` ADD COLUMN `salario` DOUBLE NOT NULL;
 
 ALTER TABLE `mesa` ADD COLUMN `reservas` TEXT NULL;
+
+ALTER TABLE `reserva` ADD COLUMN `nome` VARCHAR(255) NOT NULL;

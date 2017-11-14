@@ -10,8 +10,6 @@ import model.Mesa;
 
 public class MesaDAO {
 
-public class ClienteDAO {
-    
     private ArrayList<Mesa> mesas = null;
     private Mesa mesa = null;
     private Connection con = null;
@@ -233,6 +231,4 @@ public class ClienteDAO {
         
         return result;
     }
-}
-
 }
