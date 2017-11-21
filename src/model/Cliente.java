@@ -20,4 +20,12 @@ public class Cliente extends Pessoa {
         result = clienteDao.getById(id);
         return result;
     }
+    
+    public String save() {
+        String result = null;
+        ClienteDAO clienteDao = new ClienteDAO();
+        
+        result = clienteDao.save(this);
+        return result;
+    }    
 }

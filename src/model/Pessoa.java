@@ -6,6 +6,18 @@ public class Pessoa {
     private String endereco;
     private String telefone;
     private String cpf;
+    
+    public Pessoa(){
+        return;
+    }
+    
+    public Pessoa(int id, String nome, String endereco, String telefone, String cpf) {
+        this.setId(id);
+        this.setNome(nome);
+        this.setEndereco(endereco);
+        this.setTelefone(telefone);
+        this.setCpf(cpf);
+    }
 
     public int getId() {
         return id;
