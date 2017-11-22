@@ -107,15 +107,11 @@ CHARACTER SET = latin1
 COLLATE = latin1_swedish_ci
 ENGINE = InnoDB;
 
-ALTER TABLE `receita` DROP FOREIGN KEY `fk_ingrediente_receita`;
-
 ALTER TABLE `receita`
 	ADD CONSTRAINT `fk_ingrediente_receita` FOREIGN KEY (`id_ingrediente`)
 	REFERENCES `ingrediente`(`id`)
 	ON DELETE CASCADE
 	ON UPDATE CASCADE;
-
-ALTER TABLE `receita` DROP FOREIGN KEY `fk_produto_receita`;
 
 ALTER TABLE `receita`
 	ADD CONSTRAINT `fk_produto_receita` FOREIGN KEY (`id_produto`)
@@ -123,17 +119,12 @@ ALTER TABLE `receita`
 	ON DELETE CASCADE
 	ON UPDATE CASCADE;
 
-
-ALTER TABLE `pedido` DROP FOREIGN KEY `fk_cliente_pedido`;
-
 ALTER TABLE `pedido`
 	ADD CONSTRAINT `fk_cliente_pedido` FOREIGN KEY (`id_cliente`)
 	REFERENCES `cliente`(`id`)
 	ON DELETE CASCADE
 	ON UPDATE CASCADE;
 
-
-ALTER TABLE `pedido` DROP FOREIGN KEY `fk_funcionario_pedido`;
 
 ALTER TABLE `pedido`
 	ADD CONSTRAINT `fk_funcionario_pedido` FOREIGN KEY (`id_funcionario`)
