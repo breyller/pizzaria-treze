@@ -11,11 +11,11 @@ import br.com.pizzariatreze.DAO.MesaDAO;
 import java.util.ArrayList;
 
 public class ReservaDAO {    
-    private ArrayList<Reserva> reservas = null;
-    private Reserva reserva = null;
+    private ArrayList<ReservaDAO> reservas = null;
+    private ReservaDAO reserva = null;
     private Connection con = null;
     
-    public Reserva getById(int id) {
+    public ReservaDAO getById(int id) {
         this.reserva = null;
         PreparedStatement ps = null;
         String mesas = null;
@@ -29,7 +29,7 @@ public class ReservaDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                this.reserva = new Reserva();
+                this.reserva = new ReservaDAO();
                 this.reserva.setId(rs.getInt("id"));
                 this.reserva.setNome(rs.getString("nome"));
                 this.reserva.setStatus(rs.getInt("status"));
@@ -60,7 +60,7 @@ public class ReservaDAO {
         }
     }
     
-    public ArrayList<Reserva> getByNome(String nome) {
+    public ArrayList<ReservaDAO> getByNome(String nome) {
         this.reservas.clear();
         this.reserva = null;
         PreparedStatement ps = null;
@@ -78,7 +78,7 @@ public class ReservaDAO {
             }
             
             do {
-                this.reserva = new Reserva();
+                this.reserva = new ReservaDAO();
                 this.reserva.setId(rs.getInt("id"));
                 this.reserva.setNome(rs.getString("nome"));
                 this.reserva.setStatus(rs.getInt("status"));
@@ -105,7 +105,7 @@ public class ReservaDAO {
         }
     }
 
-    public ArrayList<Reserva> getByStatus(int status) {
+    public ArrayList<ReservaDAO> getByStatus(int status) {
         this.reservas.clear();
         this.reserva = null;
         PreparedStatement ps = null;
@@ -123,7 +123,7 @@ public class ReservaDAO {
             }
             
             do {
-                this.reserva = new Reserva();
+                this.reserva = new ReservaDAO();
                 this.reserva.setId(rs.getInt("id"));
                 this.reserva.setNome(rs.getString("nome"));
                 this.reserva.setStatus(rs.getInt("status"));
@@ -150,14 +150,14 @@ public class ReservaDAO {
         }
     }
     
-    public String save(Reserva reserva) {
+    public String save(ReservaDAO reserva) {
         String result = "Erro ao inserir/atualizar a reserva";
         String query = null;
         PreparedStatement ps = null;
         String mesas = null;
         
         if(reserva.getId() != 0) {
-            Reserva reservaBD = this.getById(reserva.getId());
+            ReservaDAO reservaBD = this.getById(reserva.getId());
             if(reservaBD != null) {
                 query = "UPDATE reserva SET nome = ?, status = ?, data = ?, composicao = ? WHERE id = ?";
                 try {

@@ -12,11 +12,11 @@ import br.com.pizzariatreze.model.Pedido;
 
 public class PedidoDAO {
 
-    private ArrayList<Pedido> pedidos = null;
-    private Pedido pedido = null;
+    private ArrayList<PedidoDAO> pedidos = null;
+    private PedidoDAO pedido = null;
     private Connection con = null;
     
-    public Pedido getById(int id) {
+    public PedidoDAO getById(int id) {
         this.pedido = null;
         PreparedStatement ps = null;
         String produtos = null;
@@ -28,7 +28,7 @@ public class PedidoDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                this.pedido = new Pedido();
+                this.pedido = new PedidoDAO();
                 this.pedido.setId(rs.getInt("id"));
                 this.pedido.setData(rs.getString("data"));
                 this.pedido.setStatus(rs.getInt("status"));
@@ -60,7 +60,7 @@ public class PedidoDAO {
         }
     }
     
-    public ArrayList<Pedido> getByData(String data) {
+    public ArrayList<PedidoDAO> getByData(String data) {
         this.pedido = null;
         this.pedidos.clear();
         PreparedStatement ps = null;
@@ -78,7 +78,7 @@ public class PedidoDAO {
             }
             
             do {
-                this.pedido = new Pedido();
+                this.pedido = new PedidoDAO();
                 this.pedido.setId(rs.getInt("id"));
                 this.pedido.setData(rs.getString("data"));
                 this.pedido.setStatus(rs.getInt("status"));
@@ -109,7 +109,7 @@ public class PedidoDAO {
         }
     }
 
-    public ArrayList<Pedido> getByStatus(int status) {
+    public ArrayList<PedidoDAO> getByStatus(int status) {
         this.pedido = null;
         this.pedidos.clear();
         PreparedStatement ps = null;
@@ -127,7 +127,7 @@ public class PedidoDAO {
             }
             
             do {
-                this.pedido = new Pedido();
+                this.pedido = new PedidoDAO();
                 this.pedido.setId(rs.getInt("id"));
                 this.pedido.setData(rs.getString("data"));
                 this.pedido.setStatus(rs.getInt("status"));
@@ -158,7 +158,7 @@ public class PedidoDAO {
         }
     }
 
-    public ArrayList<Pedido> getByTipo(int tipo) {
+    public ArrayList<PedidoDAO> getByTipo(int tipo) {
         this.pedido = null;
         this.pedidos.clear();
         PreparedStatement ps = null;
@@ -176,7 +176,7 @@ public class PedidoDAO {
             }
             
             do {
-                this.pedido = new Pedido();
+                this.pedido = new PedidoDAO();
                 this.pedido.setId(rs.getInt("id"));
                 this.pedido.setData(rs.getString("data"));
                 this.pedido.setStatus(rs.getInt("status"));
@@ -207,7 +207,7 @@ public class PedidoDAO {
         }
     }
 
-    public ArrayList<Pedido> getByCliente(int idCliente) {
+    public ArrayList<PedidoDAO> getByCliente(int idCliente) {
         Cliente cliente = new Cliente();
         this.pedido = null;
         this.pedidos.clear();
@@ -227,7 +227,7 @@ public class PedidoDAO {
             }
             
             do {
-                this.pedido = new Pedido();
+                this.pedido = new PedidoDAO();
                 this.pedido.setId(rs.getInt("id"));
                 this.pedido.setData(rs.getString("data"));
                 this.pedido.setStatus(rs.getInt("status"));
@@ -258,7 +258,7 @@ public class PedidoDAO {
         }
     }
     
-    public ArrayList<Pedido> getByFuncionario(int idFuncionario) {
+    public ArrayList<PedidoDAO> getByFuncionario(int idFuncionario) {
         Funcionario funcionario = new Funcionario();
         this.pedido = null;
         this.pedidos.clear();
@@ -278,7 +278,7 @@ public class PedidoDAO {
             }
             
             do {
-                this.pedido = new Pedido();
+                this.pedido = new PedidoDAO();
                 this.pedido.setId(rs.getInt("id"));
                 this.pedido.setData(rs.getString("data"));
                 this.pedido.setStatus(rs.getInt("status"));
@@ -309,13 +309,13 @@ public class PedidoDAO {
         }
     }
     
-    public String save(Pedido pedido) {
+    public String save(PedidoDAO pedido) {
         String result = "Erro ao inserir/atualizar o cliente";
         String query = null;
         PreparedStatement ps = null;
         String produtos = null;
         if(pedido.getId() != 0) {
-            Pedido pedidoBD = this.getById(pedido.getId());
+            PedidoDAO pedidoBD = this.getById(pedido.getId());
             if(pedidoBD != null) {
                 query = "UPDATE pedido SET data = ?, status = ?, descricao = ?, tipo = ?, preco = ?, id_cliente = ?, id_funcionario = ?, composicao = ? WHERE id = ?";
                 try {

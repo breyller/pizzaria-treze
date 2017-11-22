@@ -1,14 +1,16 @@
 package br.com.pizzariatreze.model;
 
-import br.com.pizzariatreze.DAO.FuncionarioDAO;
 import java.util.ArrayList;
+import br.com.pizzariatreze.DAO.FuncionarioDAO;
+import br.com.pizzariatreze.DTO.FuncionarioDTO;
+import java.util.List;
+import java.util.Map;
 
 public class Funcionario extends Pessoa {
     private double salario;
     private String cargo;
     
     public Funcionario(){
-        return;
     }
 
     public Funcionario(int id, String nome, String endereco, String telefone, String cpf, double salario, String cargo){
@@ -33,35 +35,38 @@ public class Funcionario extends Pessoa {
         this.cargo = cargo;
     }
     
-    public Funcionario getById(int id) {
-        Funcionario result = null;
+    public Object getById(int id) {
+        FuncionarioDTO result = null;
         FuncionarioDAO funcionarioDao = new FuncionarioDAO();
         
         result = funcionarioDao.getById(id);
         return result;
     }
     
-    public ArrayList<Funcionario> getByNome(String nome) {
-        ArrayList<Funcionario> result = null;
+    public Object getByNome(String nome) {
+        ArrayList<FuncionarioDTO> result = null;
         FuncionarioDAO funcionarioDao = new FuncionarioDAO();
         
         result = funcionarioDao.getByNome(nome);
         return result;
     }
 
-    public ArrayList<Funcionario> getByTelefone(String telefone) {
-        ArrayList<Funcionario> result = null;
+    public Object getByTelefone(String telefone) {
+        ArrayList<FuncionarioDTO> result = null;
         FuncionarioDAO funcionarioDao = new FuncionarioDAO();
         
         result = funcionarioDao.getByTelefone(telefone);
         return result;
     }
     
-    public String save() {
+    public String save(Map funcionario) {
         String result = null;
         FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+        FuncionarioDTO funcionarioDto = new FuncionarioDTO();
         
-        result = funcionarioDao.save(this);
+        funcionarioDto.setNome((String) funcionario.get("nome"));
+        
+        result = funcionarioDao.save(funcionarioDto);
         return result;
     }
     
@@ -79,6 +84,10 @@ public class Funcionario extends Pessoa {
         }
         
         return result;
+    }
+
+    public boolean login(String usuario, String senha) {
+        return false;
     }
 
 }

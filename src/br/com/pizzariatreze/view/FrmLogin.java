@@ -1,5 +1,7 @@
 package br.com.pizzariatreze.view;
 
+import br.com.pizzariatreze.Controller.LoginController;
+
 /**
  *
  * @author Gabriel
@@ -18,11 +20,11 @@ public class FrmLogin extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextFieldLogin = new javax.swing.JTextField();
+        txtLogin = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButtonLogar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
-        jPasswordFieldSenha = new javax.swing.JPasswordField();
+        txtSenha = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
@@ -47,7 +49,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jLabel2.setText("Login:");
 
-        jTextFieldLogin.setToolTipText("Insira seu nick de login.");
+        txtLogin.setToolTipText("Insira seu nick de login.");
 
         jLabel3.setText("Senha:");
 
@@ -60,10 +62,9 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jButtonCancelar.setText("Cancelar");
 
-        jPasswordFieldSenha.setText("jPasswordField1");
-        jPasswordFieldSenha.setToolTipText("");
+        txtSenha.setToolTipText("");
 
-        jLabel4.setText("Não lembro minha senha.");
+        jLabel4.setText("NÃ£o lembro minha senha.");
 
         jButton1.setText("Criar conta");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -95,8 +96,8 @@ public class FrmLogin extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonLogar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPasswordFieldSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                        .addComponent(jTextFieldLogin)))
+                        .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                        .addComponent(txtLogin)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -107,11 +108,11 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextFieldLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jPasswordFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
@@ -143,6 +144,16 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void jButtonLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogarActionPerformed
         // TODO add your handling code here:
+        LoginController login = new LoginController();
+
+        if(login.logar(txtLogin.getText(), txtSenha.toString())){
+            TelaInicial inicio = new TelaInicial();
+            this.setVisible(false);
+            inicio.setVisible(true);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(null, "Usuario ou senha invalidos");
+        }
+        
     }//GEN-LAST:event_jButtonLogarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -201,7 +212,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordFieldSenha;
-    private javax.swing.JTextField jTextFieldLogin;
+    private javax.swing.JTextField txtLogin;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,11 +10,11 @@ import br.com.pizzariatreze.model.Mesa;
 
 public class MesaDAO {
 
-    private ArrayList<Mesa> mesas = null;
-    private Mesa mesa = null;
+    private ArrayList<MesaDAO> mesas = null;
+    private MesaDAO mesa = null;
     private Connection con = null;
     
-    public Mesa getById(int id) {
+    public MesaDAO getById(int id) {
         this.mesa = null;
         PreparedStatement ps = null;
         String reservas = null;
@@ -26,7 +26,7 @@ public class MesaDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                this.mesa = new Mesa();
+                this.mesa = new MesaDAO();
                 this.mesa.setId(rs.getInt("id"));
                 this.mesa.setNumero(rs.getInt("numero"));
                 this.mesa.setQtdLugares(rs.getInt("qtd_lugares"));
@@ -53,7 +53,7 @@ public class MesaDAO {
         }
     }
     
-    public Mesa getByNumero(int numero) {
+    public MesaDAO getByNumero(int numero) {
         this.mesa = null;
         PreparedStatement ps = null;
         String reservas = null;
@@ -66,7 +66,7 @@ public class MesaDAO {
             ResultSet rs = ps.executeQuery();
             
             if (rs.next()) {
-                this.mesa = new Mesa();
+                this.mesa = new MesaDAO();
                 this.mesa.setId(rs.getInt("id"));
                 this.mesa.setNumero(rs.getInt("numero"));
                 this.mesa.setQtdLugares(rs.getInt("qtd_lugares"));
@@ -93,7 +93,7 @@ public class MesaDAO {
         }
     }
 
-    public ArrayList<Mesa> getByQtdLugares(int qtd) {
+    public ArrayList<MesaDAO> getByQtdLugares(int qtd) {
         this.mesas.clear();
         this.mesa = null;
         PreparedStatement ps = null;
@@ -111,7 +111,7 @@ public class MesaDAO {
             }
             
             do {
-                this.mesa = new Mesa();
+                this.mesa = new MesaDAO();
                 this.mesa.setId(rs.getInt("id"));
                 this.mesa.setNumero(rs.getInt("numero"));
                 this.mesa.setQtdLugares(rs.getInt("qtd_lugares"));
@@ -137,7 +137,7 @@ public class MesaDAO {
         }
     }
     
-    public ArrayList<Mesa> getByCodReserva(int codigo) {
+    public ArrayList<MesaDAO> getByCodReserva(int codigo) {
         this.mesas.clear();
         this.mesa = null;
         PreparedStatement ps = null;
@@ -155,7 +155,7 @@ public class MesaDAO {
             }
             
             do {
-                this.mesa = new Mesa();
+                this.mesa = new MesaDAO();
                 this.mesa.setId(rs.getInt("id"));
                 this.mesa.setNumero(rs.getInt("numero"));
                 this.mesa.setQtdLugares(rs.getInt("qtd_lugares"));
@@ -181,14 +181,14 @@ public class MesaDAO {
         }
     }
     
-    public String save(Mesa mesa) {
+    public String save(MesaDAO mesa) {
         String result = "Erro ao inserir/atualizar o cliente";
         String query = null;
         PreparedStatement ps = null;
         String reservas = null;
         
         if(mesa.getId() != 0) {
-            Mesa mesaBD = this.getById(mesa.getId());
+            MesaDAO mesaBD = this.getById(mesa.getId());
             if(mesaBD != null) {
                 query = "UPDATE mesa SET numero = ?, qtd_lugares = ?, reservas = ? WHERE id = ?";
                 try {

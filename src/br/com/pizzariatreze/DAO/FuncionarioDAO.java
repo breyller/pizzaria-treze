@@ -5,16 +5,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import br.com.pizzariatreze.model.Funcionario;
+import br.com.pizzariatreze.DTO.FuncionarioDTO;
 import java.util.ArrayList;
 
 public class FuncionarioDAO {
     
-    private ArrayList<Funcionario> funcionarios = null;
-    private Funcionario funcionario = null;
+    private ArrayList<FuncionarioDTO> funcionarios = null;
+    private FuncionarioDTO funcionario = null;
     private Connection con = null;
     
-    public Funcionario getById(int id) {
+    public FuncionarioDTO getById(int id) {
         this.funcionario = null;
         PreparedStatement ps = null;
         
@@ -24,7 +24,7 @@ public class FuncionarioDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                this.funcionario = new Funcionario();
+                this.funcionario = new FuncionarioDTO();
                 this.funcionario.setId(rs.getInt("id"));
                 this.funcionario.setTelefone(rs.getString("telefone"));
                 this.funcionario.setNome(rs.getString("nome"));
@@ -50,7 +50,7 @@ public class FuncionarioDAO {
         }
     }
     
-    public ArrayList<Funcionario> getByNome(String nome) {
+    public ArrayList<FuncionarioDTO> getByNome(String nome) {
         this.funcionarios.clear();
         this.funcionario = null;
         PreparedStatement ps = null;
@@ -66,7 +66,7 @@ public class FuncionarioDAO {
             }
             
             do {
-                this.funcionario = new Funcionario();
+                this.funcionario = new FuncionarioDTO();
                 this.funcionario.setId(rs.getInt("id"));
                 this.funcionario.setTelefone(rs.getString("telefone"));
                 this.funcionario.setNome(rs.getString("nome"));
@@ -91,7 +91,7 @@ public class FuncionarioDAO {
         }
     }
 
-    public ArrayList<Funcionario> getByTelefone(String telefone) {
+    public ArrayList<FuncionarioDTO> getByTelefone(String telefone) {
         this.funcionarios.clear();
         this.funcionario = null;
         PreparedStatement ps = null;
@@ -107,7 +107,7 @@ public class FuncionarioDAO {
             }
             
             do {
-                this.funcionario = new Funcionario();
+                this.funcionario = new FuncionarioDTO();
                 this.funcionario.setId(rs.getInt("id"));
                 this.funcionario.setTelefone(rs.getString("telefone"));
                 this.funcionario.setNome(rs.getString("nome"));
@@ -132,13 +132,13 @@ public class FuncionarioDAO {
         }
     }
     
-    public String save(Funcionario funcionario) {
+    public String save(FuncionarioDTO funcionario) {
         String result = "Erro ao inserir/atualizar o funcionario";
         String query = null;
         PreparedStatement ps = null;
         
         if(funcionario.getId() != 0) {
-            Funcionario funcionarioBD = this.getById(funcionario.getId());
+            FuncionarioDTO funcionarioBD = this.getById(funcionario.getId());
             if(funcionarioBD != null) {
                 query = "UPDATE funcionario SET nome = ?, telefone = ?, cpf = ?, endereco = ?, cargo = ?, salario = ? WHERE id = ?";
                 try {

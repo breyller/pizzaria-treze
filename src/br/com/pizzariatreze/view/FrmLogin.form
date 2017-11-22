@@ -92,8 +92,8 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jButton1" max="32767" attributes="0"/>
                           <Component id="jButtonLogar" max="32767" attributes="0"/>
-                          <Component id="jPasswordFieldSenha" alignment="0" pref="150" max="32767" attributes="0"/>
-                          <Component id="jTextFieldLogin" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtSenha" alignment="0" pref="150" max="32767" attributes="0"/>
+                          <Component id="txtLogin" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -108,12 +108,12 @@
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPasswordFieldSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -143,7 +143,7 @@
             <Property name="text" type="java.lang.String" value="Login:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldLogin">
+        <Component class="javax.swing.JTextField" name="txtLogin">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value="Insira seu nick de login."/>
           </Properties>
@@ -166,9 +166,8 @@
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="jPasswordFieldSenha">
+        <Component class="javax.swing.JPasswordField" name="txtSenha">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jPasswordField1"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
