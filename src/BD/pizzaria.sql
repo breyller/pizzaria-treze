@@ -4,7 +4,7 @@ USE pizzaria;
 
 DROP TABLE IF EXISTS `cliente` CASCADE;
 
-CREATE IF NOT EXISTS TABLE `cliente` (
+CREATE TABLE `cliente` (
 	`id` INT(11) UNSIGNED NOT NULL,
 	`nome` VARCHAR(127) NOT NULL,
 	`endereco` VARCHAR(255) NOT NULL,
