@@ -5,14 +5,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import br.com.pizzariatreze.model.Reserva;
+import br.com.pizzariatreze.DTO.ReservaDTO;
 import br.com.pizzariatreze.model.Mesa;
 import br.com.pizzariatreze.DAO.MesaDAO;
 import java.util.ArrayList;
 
 public class ReservaDAO {    
-    private ArrayList<ReservaDAO> reservas = null;
-    private ReservaDAO reserva = null;
+    private ArrayList<ReservaDTO> reservas = null;
+    private ReservaDTO reserva = null;
     private Connection con = null;
     
     public ReservaDAO getById(int id) {

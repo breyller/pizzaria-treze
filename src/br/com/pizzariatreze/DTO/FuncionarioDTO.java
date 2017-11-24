@@ -1,18 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.pizzariatreze.DTO;
 
-/**
- *
- * @author Fabio
- */
-public class FuncionarioDTO {
+import br.com.pizzariatreze.DAO.FuncionarioDAO;
+import java.util.Map;
 
-    public void setNome(String string) {
-        
-    }
+public class FuncionarioDTO extends PessoaDTO {
+
+    private double salario;
+    private String cargo;
     
+    public FuncionarioDTO(){
+    }
+
+    public FuncionarioDTO(int id, String nome, String endereco, String telefone, String cpf, double salario, String cargo){
+        super(id,nome,endereco,telefone,cpf);
+        this.setSalario(salario);
+        this.setCargo(cargo);
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
 }

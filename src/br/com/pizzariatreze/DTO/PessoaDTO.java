@@ -1,21 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.pizzariatreze.DTO;
 
-/**
- *
- * @author Fabio
- */
 public class PessoaDTO {
+    
     private int id;
     private String nome;
     private String endereco;
     private String telefone;
     private String cpf;
 
+    public PessoaDTO(){
+    }
+    
+    public PessoaDTO(int id, String nome, String endereco, String telefone, String cpf){
+        this.setId(id);
+        this.setNome(nome);
+        this.setEndereco(endereco);
+        this.setTelefone(telefone);
+        this.setCpf(cpf);
+    }
+    
     public int getId() {
         return id;
     }

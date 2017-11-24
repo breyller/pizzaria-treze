@@ -5,16 +5,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import br.com.pizzariatreze.model.Ingrediente;
+import br.com.pizzariatreze.DTO.IngredienteDTO;
 import java.util.ArrayList;
 
 public class IngredienteDAO {
     
-    private ArrayList<IngredienteDAO> ingredientes = null;
-    private IngredienteDAO ingrediente = null;
+    private ArrayList<IngredienteDTO> ingredientes = null;
+    private IngredienteDTO ingrediente = null;
     private Connection con = null;
     
-    public IngredienteDAO getById(int id) {
+    public IngredienteDTO getById(int id) {
         this.ingrediente = null;
         PreparedStatement ps = null;
         
@@ -24,7 +24,7 @@ public class IngredienteDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                this.ingrediente = new IngredienteDAO();
+                this.ingrediente = new IngredienteDTO();
                 this.ingrediente.setId(rs.getInt("id"));
                 this.ingrediente.setNome(rs.getString("nome"));
                 this.ingrediente.setDescricao(rs.getString("descricao"));
@@ -48,7 +48,7 @@ public class IngredienteDAO {
         }
     }
     
-    public ArrayList<IngredienteDAO> getByNome(String nome) {
+    public ArrayList<IngredienteDTO> getByNome(String nome) {
         this.ingredientes.clear();
         this.ingrediente = null;
         PreparedStatement ps = null;
@@ -64,7 +64,7 @@ public class IngredienteDAO {
             }
             
             do {
-                this.ingrediente = new IngredienteDAO();
+                this.ingrediente = new IngredienteDTO();
                 this.ingrediente.setId(rs.getInt("id"));
                 this.ingrediente.setNome(rs.getString("nome"));
                 this.ingrediente.setDescricao(rs.getString("descricao"));
@@ -87,7 +87,7 @@ public class IngredienteDAO {
         }
     }
 
-    public ArrayList<IngredienteDAO> getByValor(double valor) {
+    public ArrayList<IngredienteDTO> getByValor(double valor) {
         this.ingredientes.clear();
         this.ingrediente = null;
         PreparedStatement ps = null;
@@ -103,7 +103,7 @@ public class IngredienteDAO {
             }
             
             do {
-                this.ingrediente = new IngredienteDAO();
+                this.ingrediente = new IngredienteDTO();
                 this.ingrediente.setId(rs.getInt("id"));
                 this.ingrediente.setNome(rs.getString("nome"));
                 this.ingrediente.setDescricao(rs.getString("descricao"));
@@ -126,13 +126,13 @@ public class IngredienteDAO {
         }
     }
     
-    public String save(IngredienteDAO ingrediente) {
+    public String save(IngredienteDTO ingrediente) {
         String result = "Erro ao inserir/atualizar o ingrediente";
         String query = null;
         PreparedStatement ps = null;
         
         if(ingrediente.getId() != 0) {
-            IngredienteDAO ingredienteBD = this.getById(ingrediente.getId());
+            IngredienteDTO ingredienteBD = this.getById(ingrediente.getId());
             if(ingredienteBD != null) {
                 query = "UPDATE ingrediente SET nome = ?, descricao = ?, quantidade = ?, preco = ? WHERE id = ?";
                 try {
