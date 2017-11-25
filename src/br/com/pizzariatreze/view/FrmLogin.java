@@ -1,6 +1,6 @@
 package br.com.pizzariatreze.view;
 
-import br.com.pizzariatreze.Controller.LoginController;
+import br.com.pizzariatreze.controller.LoginController;
 
 /**
  *

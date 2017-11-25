@@ -1,31 +1,33 @@
 package br.com.pizzariatreze.model;
 
-import br.com.pizzariatreze.DAO.FuncionarioDAO;
-import br.com.pizzariatreze.DTO.FuncionarioDTO;
+import br.com.pizzariatreze.dao.Clientedao;
+import br.com.pizzariatreze.dao.Funcionariodao;
+import br.com.pizzariatreze.dto.Clientedto;
+import br.com.pizzariatreze.dto.Funcionariodto;
 import java.util.Map;
 import java.util.ArrayList;
 
 public class Funcionario extends Pessoa {
 
     public Object getById(int id) {
-        FuncionarioDTO result = null;
-        FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+        Funcionariodto result = null;
+        Funcionariodao funcionarioDao = new Funcionariodao();
         
         result = funcionarioDao.getById(id);
         return result;
     }
     
     public Object getByNome(String nome) {
-        ArrayList<FuncionarioDTO> result = null;
-        FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+        ArrayList<Funcionariodto> result = null;
+        Funcionariodao funcionarioDao = new Funcionariodao();
         
         result = funcionarioDao.getByNome(nome);
         return result;
     }
 
     public Object getByTelefone(String telefone) {
-        ArrayList<FuncionarioDTO> result = null;
-        FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+        ArrayList<Funcionariodto> result = null;
+        Funcionariodao funcionarioDao = new Funcionariodao();
         
         result = funcionarioDao.getByTelefone(telefone);
         return result;
@@ -33,7 +35,7 @@ public class Funcionario extends Pessoa {
     
     public String save(Map funcionario) {
         String result = null;
-        FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+        Funcionariodao funcionarioDao = new Funcionariodao();
                 
         int idFuncionario = (int)funcionario.get("id");
         String nomeFuncionario = (String)funcionario.get("nome");
@@ -43,18 +45,19 @@ public class Funcionario extends Pessoa {
         double salarioFuncionario = (double)funcionario.get("salario");
         String cargoFuncionario = (String)funcionario.get("cargo");
         
-        FuncionarioDTO funcionarioDto = new FuncionarioDTO(idFuncionario,nomeFuncionario,enderecoFuncionario,telefoneFuncionario,cpfFuncionario,salarioFuncionario,cargoFuncionario);
+        Funcionariodto funcionarioDto = new Funcionariodto(idFuncionario,nomeFuncionario,enderecoFuncionario,telefoneFuncionario,cpfFuncionario,salarioFuncionario,cargoFuncionario);
         
         result = funcionarioDao.save(funcionarioDto);
         return result;
     }
     
-    public boolean cadastrarCliente(Cliente cli) {
+    public boolean cadastrarCliente(Clientedto cli) {
         boolean result = false;
         String tentativa = null;
+        Clientedao clienteDao = new Clientedao(); 
         
         try {
-            tentativa = cli.save();
+            tentativa = clienteDao.save(cli);
             if (tentativa == "Cliente criado com sucesso." || tentativa == "Cliente atualizado com sucesso.") {
                 result = true;
             }

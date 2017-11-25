@@ -5,8 +5,8 @@
  */
 package br.com.pizzariatreze.view;
 
-import br.com.pizzariatreze.view.Cadastro.TelaCadastro;
-import br.com.pizzariatreze.view.Consulta.TelaConsulta;
+import br.com.pizzariatreze.view.cadastro.TelaCadastro;
+import br.com.pizzariatreze.view.consulta.TelaConsulta;
 
 /**
  *
