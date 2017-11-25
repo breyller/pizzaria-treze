@@ -1,7 +1,7 @@
 package br.com.pizzariatreze.dao;
 
 import br.com.pizzariatreze.bd.Conexao;
-import br.com.pizzariatreze.dto.Produtodto;
+import br.com.pizzariatreze.dto.ProdutoDto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 public class ProdutoDao {
 
-    private ArrayList<Produtodto> produtos = null;
-    private Produtodto produto = null;
+    private ArrayList<ProdutoDto> produtos = null;
+    private ProdutoDto produto = null;
     private Connection con = null;
     
-    public Produtodto getById(int id) {
+    public ProdutoDto getById(int id) {
         this.produto = null;
         PreparedStatement ps = null;
         String ingredientes = null;
@@ -27,7 +27,7 @@ public class ProdutoDao {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                this.produto = new Produtodto();
+                this.produto = new ProdutoDto();
                 this.produto.setId(rs.getInt("id"));
                 this.produto.setNome(rs.getString("nome"));
                 this.produto.setPreco(rs.getDouble("preco"));
@@ -55,7 +55,7 @@ public class ProdutoDao {
         }
     }
     
-    public ArrayList<Produtodto> getByNome(String nome) {
+    public ArrayList<ProdutoDto> getByNome(String nome) {
         this.produto = null;
         this.produtos.clear();
         PreparedStatement ps = null;
@@ -74,7 +74,7 @@ public class ProdutoDao {
             }
             
             do {
-                this.produto = new Produtodto();
+                this.produto = new ProdutoDto();
                 this.produto.setId(rs.getInt("id"));
                 this.produto.setNome(rs.getString("nome"));
                 this.produto.setPreco(rs.getDouble("preco"));
@@ -101,7 +101,7 @@ public class ProdutoDao {
         }
     }
 
-    public ArrayList<Produtodto> getByDescricao(String descricao) {
+    public ArrayList<ProdutoDto> getByDescricao(String descricao) {
         this.produto = null;
         this.produtos.clear();
         PreparedStatement ps = null;
@@ -120,7 +120,7 @@ public class ProdutoDao {
             }
             
             do {
-                this.produto = new Produtodto();
+                this.produto = new ProdutoDto();
                 this.produto.setId(rs.getInt("id"));
                 this.produto.setNome(rs.getString("nome"));
                 this.produto.setPreco(rs.getDouble("preco"));
@@ -147,7 +147,7 @@ public class ProdutoDao {
         }
     }
     
-    public ArrayList<Produtodto> getByIngrediente(int ingredienteId) {
+    public ArrayList<ProdutoDto> getByIngrediente(int ingredienteId) {
         this.produto = null;
         this.produtos.clear();
         PreparedStatement ps = null;
@@ -166,7 +166,7 @@ public class ProdutoDao {
             }
             
             do {
-                this.produto = new Produtodto();
+                this.produto = new ProdutoDto();
                 this.produto.setId(rs.getInt("id"));
                 this.produto.setNome(rs.getString("nome"));
                 this.produto.setPreco(rs.getDouble("preco"));
@@ -193,14 +193,14 @@ public class ProdutoDao {
         }
     }
     
-    public String save(Produtodto produto) {
+    public String save(ProdutoDto produto) {
         String result = "Erro ao inserir/atualizar o cliente";
         String query = null;
         PreparedStatement ps = null;
         String ingredientes = null;
         
         if(produto.getId() != 0) {
-            Produtodto produtoBD = this.getById(produto.getId());
+            ProdutoDto produtoBD = this.getById(produto.getId());
             if(produtoBD != null) {
                 query = "UPDATE produto SET nome = ?, preco = ?, descricao = ?, composicao = ? WHERE id = ?";
                 try {

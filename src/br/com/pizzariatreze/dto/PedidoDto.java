@@ -2,16 +2,16 @@ package br.com.pizzariatreze.dto;
 
 import java.util.ArrayList;
 
-public class Pedidodto {
+public class PedidoDto {
     private int id;
     private String data;
     private int status;
     private String descricao;
     private int tipo;
     private double preco;
-    private Clientedto cliente;
-    private Funcionariodto funcionario;
-    private ArrayList<Produtodto> composicao;
+    private ClienteDto cliente;
+    private FuncionarioDto funcionario;
+    private ArrayList<ProdutoDto> composicao;
 
     public int getId() {
         return id;
@@ -61,27 +61,27 @@ public class Pedidodto {
         this.preco = preco;
     }
 
-    public Clientedto getCliente() {
+    public ClienteDto getCliente() {
         return cliente;
     }
 
-    public void setCliente(Clientedto cliente) {
+    public void setCliente(ClienteDto cliente) {
         this.cliente = cliente;
     }
 
-    public Funcionariodto getFuncionario() {
+    public FuncionarioDto getFuncionario() {
         return funcionario;
     }
 
-    public void setFuncionario(Funcionariodto funcionario) {
+    public void setFuncionario(FuncionarioDto funcionario) {
         this.funcionario = funcionario;
     }
 
-    public ArrayList<Produtodto> getComposicao() {
+    public ArrayList<ProdutoDto> getComposicao() {
         return composicao;
     }
 
-    public void setComposicao(Produtodto composicao) {
+    public void setComposicao(ProdutoDto composicao) {
         this.composicao.add(composicao);
     }
     

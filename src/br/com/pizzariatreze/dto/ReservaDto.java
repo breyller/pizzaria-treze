@@ -2,10 +2,10 @@ package br.com.pizzariatreze.dto;
 
 import java.util.ArrayList;
 
-public class Reservadto {
+public class ReservaDto {
     private int id;
     private String data;
-    private ArrayList<Mesadto> composicao;
+    private ArrayList<MesaDto> composicao;
     private int status;
     private String nome;
 
@@ -25,11 +25,11 @@ public class Reservadto {
         this.data = data;
     }
 
-    public ArrayList<Mesadto> getComposicao() {
+    public ArrayList<MesaDto> getComposicao() {
         return composicao;
     }
 
-    public void setComposicao(Mesadto mesa) {
+    public void setComposicao(MesaDto mesa) {
         this.composicao.add(mesa);
     }
 

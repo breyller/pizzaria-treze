@@ -3,7 +3,7 @@ package br.com.pizzariatreze.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pessoadto {
+public class PessoaDto {
     
     private int id;
     private String nome;
@@ -13,11 +13,11 @@ public class Pessoadto {
     private String senha;
     protected List alterado;
 
-    public Pessoadto(){
+    public PessoaDto(){
         this.alterado = new ArrayList<>();
     }
     
-    public Pessoadto(int id, String nome, String endereco, String telefone, String cpf){
+    public PessoaDto(int id, String nome, String endereco, String telefone, String cpf){
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;

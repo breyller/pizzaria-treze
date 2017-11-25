@@ -5,17 +5,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import br.com.pizzariatreze.dto.Funcionariodto;
+import br.com.pizzariatreze.dto.FuncionarioDto;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FuncionarioDao {
     
-    private ArrayList<Funcionariodto> funcionarios = null;
-    private Funcionariodto funcionario = null;
+    private ArrayList<FuncionarioDto> funcionarios = null;
+    private FuncionarioDto funcionario = null;
     private Connection con = null;
     
-    public Funcionariodto getById(int id) {
+    public FuncionarioDto getById(int id) {
         this.funcionario = null;
         PreparedStatement ps = null;
         
@@ -25,7 +25,7 @@ public class FuncionarioDao {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                this.funcionario = new Funcionariodto();
+                this.funcionario = new FuncionarioDto();
                 this.funcionario.setId(rs.getInt("id"));
                 this.funcionario.setTelefone(rs.getString("telefone"));
                 this.funcionario.setNome(rs.getString("nome"));
@@ -51,7 +51,7 @@ public class FuncionarioDao {
         }
     }
     
-    public ArrayList<Funcionariodto> getByNome(String nome) {
+    public ArrayList<FuncionarioDto> getByNome(String nome) {
         this.funcionarios.clear();
         this.funcionario = null;
         PreparedStatement ps = null;
@@ -67,7 +67,7 @@ public class FuncionarioDao {
             }
             
             do {
-                this.funcionario = new Funcionariodto();
+                this.funcionario = new FuncionarioDto();
                 this.funcionario.setId(rs.getInt("id"));
                 this.funcionario.setTelefone(rs.getString("telefone"));
                 this.funcionario.setNome(rs.getString("nome"));
@@ -92,7 +92,7 @@ public class FuncionarioDao {
         }
     }
 
-    public ArrayList<Funcionariodto> getByTelefone(String telefone) {
+    public ArrayList<FuncionarioDto> getByTelefone(String telefone) {
         this.funcionarios.clear();
         this.funcionario = null;
         PreparedStatement ps = null;
@@ -108,7 +108,7 @@ public class FuncionarioDao {
             }
             
             do {
-                this.funcionario = new Funcionariodto();
+                this.funcionario = new FuncionarioDto();
                 this.funcionario.setId(rs.getInt("id"));
                 this.funcionario.setTelefone(rs.getString("telefone"));
                 this.funcionario.setNome(rs.getString("nome"));
@@ -133,13 +133,13 @@ public class FuncionarioDao {
         }
     }
     
-    public String save(Funcionariodto funcionario) {
+    public String save(FuncionarioDto funcionario) {
         String result = "Erro ao inserir/atualizar o funcionario";
         String query = null;
         PreparedStatement ps = null;
         
         if(funcionario.getId() != 0) {
-            Funcionariodto funcionarioBD = this.getById(funcionario.getId());
+            FuncionarioDto funcionarioBD = this.getById(funcionario.getId());
             if(funcionarioBD != null) {
                 query = "UPDATE funcionario SET nome = ?, telefone = ?, cpf = ?, endereco = ?, cargo = ?, salario = ? WHERE id = ?";
                 try {
@@ -181,7 +181,7 @@ public class FuncionarioDao {
         return result;
     }
     
-    public ArrayList<Funcionariodto> search(Funcionariodto funcionario) {
+    public ArrayList<FuncionarioDto> search(FuncionarioDto funcionario) {
 
         try{
             con = Conexao.getConexao();
@@ -246,7 +246,7 @@ public class FuncionarioDao {
             }
 
             do {
-                this.funcionario = new Funcionariodto();
+                this.funcionario = new FuncionarioDto();
                 this.funcionario.setId(rs.getInt("id"));
                 this.funcionario.setTelefone(rs.getString("telefone"));
                 this.funcionario.setNome(rs.getString("nome"));

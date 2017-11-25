@@ -2,16 +2,16 @@ package br.com.pizzariatreze.dto;
 
 import java.util.ArrayList;
 
-public class Mesadto {
+public class MesaDto {
     private int id;
     private int numero;
     private int qtdLugares;
     private ArrayList<Integer> codReserva = new ArrayList<Integer>();
     
-    public Mesadto() {
+    public MesaDto() {
     }
     
-    public Mesadto(int id, int numero, int qtdLugares, ArrayList<Integer> codReserva) {
+    public MesaDto(int id, int numero, int qtdLugares, ArrayList<Integer> codReserva) {
         this.setId(id);
         this.setNumero(numero);
         this.setQtdLugares(qtdLugares);

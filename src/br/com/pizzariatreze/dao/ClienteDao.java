@@ -5,16 +5,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import br.com.pizzariatreze.dto.Clientedto;
+import br.com.pizzariatreze.dto.ClienteDto;
 import java.util.ArrayList;
 
 public class ClienteDao {
     
-    private ArrayList<Clientedto> clientes = null;
-    private Clientedto cliente = null;
+    private ArrayList<ClienteDto> clientes = null;
+    private ClienteDto cliente = null;
     private Connection con = null;
     
-    public Clientedto getById(int id) {
+    public ClienteDto getById(int id) {
         this.cliente = null;
         PreparedStatement ps = null;
         
@@ -24,7 +24,7 @@ public class ClienteDao {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                this.cliente = new Clientedto();
+                this.cliente = new ClienteDto();
                 this.cliente.setId(rs.getInt("id"));
                 this.cliente.setTelefone(rs.getString("telefone"));
                 this.cliente.setNome(rs.getString("nome"));
@@ -47,7 +47,7 @@ public class ClienteDao {
         }
     }
     
-    public ArrayList<Clientedto> getByNome(String nome) {
+    public ArrayList<ClienteDto> getByNome(String nome) {
         this.clientes.clear();
         this.cliente = null;
         PreparedStatement ps = null;
@@ -63,7 +63,7 @@ public class ClienteDao {
             }
             
             do {
-                this.cliente = new Clientedto();
+                this.cliente = new ClienteDto();
                 this.cliente.setId(rs.getInt("id"));
                 this.cliente.setTelefone(rs.getString("telefone"));
                 this.cliente.setNome(rs.getString("nome"));
@@ -85,7 +85,7 @@ public class ClienteDao {
         }
     }
 
-    public ArrayList<Clientedto> getByTelefone(String telefone) {
+    public ArrayList<ClienteDto> getByTelefone(String telefone) {
         this.clientes.clear();
         this.cliente = null;
         PreparedStatement ps = null;
@@ -101,7 +101,7 @@ public class ClienteDao {
             }
             
             do {
-                this.cliente = new Clientedto();
+                this.cliente = new ClienteDto();
                 this.cliente.setId(rs.getInt("id"));
                 this.cliente.setTelefone(rs.getString("telefone"));
                 this.cliente.setNome(rs.getString("nome"));
@@ -123,13 +123,13 @@ public class ClienteDao {
         }
     }
     
-    public String save(Clientedto cliente) {
+    public String save(ClienteDto cliente) {
         String result = "Erro ao inserir/atualizar o cliente";
         String query = null;
         PreparedStatement ps = null;
         
         if(cliente.getId() != 0) {
-            Clientedto clienteBD = this.getById(cliente.getId());
+            ClienteDto clienteBD = this.getById(cliente.getId());
             if(clienteBD != null) {
                 query = "UPDATE cliente SET nome = ?, telefone = ?, cpf = ?, endereco = ? WHERE id = ?";
                 try {

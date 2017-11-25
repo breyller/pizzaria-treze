@@ -1,14 +1,14 @@
 package br.com.pizzariatreze.dto;
 
-public class Funcionariodto extends Pessoadto {
+public class FuncionarioDto extends PessoaDto {
 
     private double salario;
     private String cargo;
     
-    public Funcionariodto(){
+    public FuncionarioDto(){
     }
 
-    public Funcionariodto(int id, String nome, String endereco, String telefone, String cpf, double salario, String cargo){
+    public FuncionarioDto(int id, String nome, String endereco, String telefone, String cpf, double salario, String cargo){
         super(id,nome,endereco,telefone,cpf);
         this.setSalario(salario);
         this.setCargo(cargo);
