@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import br.com.pizzariatreze.dto.Clientedto;
 import java.util.ArrayList;
 
-public class Clientedao {
+public class ClienteDao {
     
     private ArrayList<Clientedto> clientes = null;
     private Clientedto cliente = null;

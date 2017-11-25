@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Produtodao {
+public class ProdutoDao {
 
     private ArrayList<Produtodto> produtos = null;
     private Produtodto produto = null;
@@ -19,7 +19,7 @@ public class Produtodao {
         PreparedStatement ps = null;
         String ingredientes = null;
         String[] ingredientesSplit = null;
-        Ingredientedao ingredienteDao = new Ingredientedao();
+        IngredienteDao ingredienteDao = new IngredienteDao();
 
         try {
             con = Conexao.getConexao();
@@ -61,7 +61,7 @@ public class Produtodao {
         PreparedStatement ps = null;
         String ingredientes = null;
         String[] ingredientesSplit = null;
-        Ingredientedao ingredienteDao = new Ingredientedao();
+        IngredienteDao ingredienteDao = new IngredienteDao();
         
         try {
             con = Conexao.getConexao();
@@ -107,7 +107,7 @@ public class Produtodao {
         PreparedStatement ps = null;
         String ingredientes = null;
         String[] ingredientesSplit = null;
-        Ingredientedao ingredienteDao = new Ingredientedao();
+        IngredienteDao ingredienteDao = new IngredienteDao();
         
         try {
             con = Conexao.getConexao();
@@ -153,7 +153,7 @@ public class Produtodao {
         PreparedStatement ps = null;
         String ingredientes = null;
         String[] ingredientesSplit = null;
-        Ingredientedao ingredienteDao = new Ingredientedao();
+        IngredienteDao ingredienteDao = new IngredienteDao();
         
         try {
             con = Conexao.getConexao();

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import br.com.pizzariatreze.dto.Gerentedto;
 
-public class Gerentedao {
+public class GerenteDao {
     
     private ArrayList<Gerentedto> gerentes = null;
     private Gerentedto gerente = null;

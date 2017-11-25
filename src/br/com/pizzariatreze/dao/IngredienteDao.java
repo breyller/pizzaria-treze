@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import br.com.pizzariatreze.dto.Ingredientedto;
 import java.util.ArrayList;
 
-public class Ingredientedao {
+public class IngredienteDao {
     
     private ArrayList<Ingredientedto> ingredientes = null;
     private Ingredientedto ingrediente = null;

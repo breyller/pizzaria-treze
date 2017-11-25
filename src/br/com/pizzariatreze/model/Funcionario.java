@@ -1,7 +1,7 @@
 package br.com.pizzariatreze.model;
 
-import br.com.pizzariatreze.dao.Clientedao;
-import br.com.pizzariatreze.dao.Funcionariodao;
+import br.com.pizzariatreze.dao.ClienteDao;
+import br.com.pizzariatreze.dao.FuncionarioDao;
 import br.com.pizzariatreze.dto.Clientedto;
 import br.com.pizzariatreze.dto.Funcionariodto;
 import br.com.pizzariatreze.util.Util;
@@ -12,7 +12,7 @@ public class Funcionario extends Pessoa {
 
     public Object getById(int id) {
         Funcionariodto result = null;
-        Funcionariodao funcionarioDao = new Funcionariodao();
+        FuncionarioDao funcionarioDao = new FuncionarioDao();
         
         result = funcionarioDao.getById(id);
         return result;
@@ -20,7 +20,7 @@ public class Funcionario extends Pessoa {
     
     public Object getByNome(String nome) {
         ArrayList<Funcionariodto> result = null;
-        Funcionariodao funcionarioDao = new Funcionariodao();
+        FuncionarioDao funcionarioDao = new FuncionarioDao();
         
         result = funcionarioDao.getByNome(nome);
         return result;
@@ -28,7 +28,7 @@ public class Funcionario extends Pessoa {
 
     public Object getByTelefone(String telefone) {
         ArrayList<Funcionariodto> result = null;
-        Funcionariodao funcionarioDao = new Funcionariodao();
+        FuncionarioDao funcionarioDao = new FuncionarioDao();
         
         result = funcionarioDao.getByTelefone(telefone);
         return result;
@@ -36,7 +36,7 @@ public class Funcionario extends Pessoa {
     
     public String save(Map funcionario) {
         String result = null;
-        Funcionariodao funcionarioDao = new Funcionariodao();
+        FuncionarioDao funcionarioDao = new FuncionarioDao();
                 
         int idFuncionario = (int)funcionario.get("id");
         String nomeFuncionario = (String)funcionario.get("nome");
@@ -55,7 +55,7 @@ public class Funcionario extends Pessoa {
     public boolean cadastrarCliente(Clientedto cli) {
         boolean result = false;
         String tentativa = null;
-        Clientedao clienteDao = new Clientedao(); 
+        ClienteDao clienteDao = new ClienteDao(); 
         
         try {
             tentativa = clienteDao.save(cli);
@@ -77,7 +77,7 @@ public class Funcionario extends Pessoa {
         funcionario.setCpf(usuario);
         funcionario.setSenha(senhaMD5);
         
-        Funcionariodao func = new Funcionariodao();
+        FuncionarioDao func = new FuncionarioDao();
         
         if(!func.search(funcionario).isEmpty())
             return true;

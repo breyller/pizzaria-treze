@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Reservadao {    
+public class ReservaDao {    
     private ArrayList<Reservadto> reservas = null;
     private Reservadto reserva = null;
     private Connection con = null;
@@ -19,7 +19,7 @@ public class Reservadao {
         PreparedStatement ps = null;
         String mesas = null;
         String[] mesasSplit = null;
-        Mesadao mesaDao = new Mesadao();
+        MesaDao mesaDao = new MesaDao();
         
         try {
             con = Conexao.getConexao();
@@ -61,7 +61,7 @@ public class Reservadao {
         PreparedStatement ps = null;
         String mesas = null;
         String[] mesasSplit = null;
-        Mesadao mesaDao = new Mesadao();
+        MesaDao mesaDao = new MesaDao();
         
         try {
             con = Conexao.getConexao();
@@ -107,7 +107,7 @@ public class Reservadao {
         PreparedStatement ps = null;
         String mesas = null;
         String[] mesasSplit = null;
-        Mesadao mesaDao = new Mesadao();
+        MesaDao mesaDao = new MesaDao();
         
         try {
             con = Conexao.getConexao();

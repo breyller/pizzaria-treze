@@ -9,7 +9,7 @@ import br.com.pizzariatreze.dto.Funcionariodto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Funcionariodao {
+public class FuncionarioDao {
     
     private ArrayList<Funcionariodto> funcionarios = null;
     private Funcionariodto funcionario = null;

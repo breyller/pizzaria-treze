@@ -1,8 +1,8 @@
 package br.com.pizzariatreze.dao;
 
 import br.com.pizzariatreze.bd.Conexao;
-import br.com.pizzariatreze.dao.Clientedao;
-import br.com.pizzariatreze.dao.Funcionariodao;
+import br.com.pizzariatreze.dao.ClienteDao;
+import br.com.pizzariatreze.dao.FuncionarioDao;
 import br.com.pizzariatreze.dto.Pedidodto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Pedidodao {
+public class PedidoDao {
 
     private ArrayList<Pedidodto> pedidos = null;
     private Pedidodto pedido = null;
@@ -21,9 +21,9 @@ public class Pedidodao {
         PreparedStatement ps = null;
         String produtos = null;
         String[] produtosSplit = null;
-        Clientedao clienteDao = new Clientedao();
-        Funcionariodao funcionarioDao = new Funcionariodao();
-        Produtodao produtoDao = new Produtodao();
+        ClienteDao clienteDao = new ClienteDao();
+        FuncionarioDao funcionarioDao = new FuncionarioDao();
+        ProdutoDao produtoDao = new ProdutoDao();
         
         try {
             con = Conexao.getConexao();
@@ -69,9 +69,9 @@ public class Pedidodao {
         PreparedStatement ps = null;
         String produtos = null;
         String[] produtosSplit = null;
-        Clientedao clienteDao = new Clientedao();
-        Funcionariodao funcionarioDao = new Funcionariodao();
-        Produtodao produtoDao = new Produtodao();
+        ClienteDao clienteDao = new ClienteDao();
+        FuncionarioDao funcionarioDao = new FuncionarioDao();
+        ProdutoDao produtoDao = new ProdutoDao();
         
         try {
             con = Conexao.getConexao();
@@ -121,9 +121,9 @@ public class Pedidodao {
         PreparedStatement ps = null;
         String produtos = null;
         String[] produtosSplit = null;
-        Clientedao clienteDao = new Clientedao();
-        Funcionariodao funcionarioDao = new Funcionariodao();
-        Produtodao produtoDao = new Produtodao();
+        ClienteDao clienteDao = new ClienteDao();
+        FuncionarioDao funcionarioDao = new FuncionarioDao();
+        ProdutoDao produtoDao = new ProdutoDao();
         
         try {
             con = Conexao.getConexao();
@@ -173,9 +173,9 @@ public class Pedidodao {
         PreparedStatement ps = null;
         String produtos = null;
         String[] produtosSplit = null;
-        Clientedao clienteDao = new Clientedao();
-        Funcionariodao funcionarioDao = new Funcionariodao();
-        Produtodao produtoDao = new Produtodao();
+        ClienteDao clienteDao = new ClienteDao();
+        FuncionarioDao funcionarioDao = new FuncionarioDao();
+        ProdutoDao produtoDao = new ProdutoDao();
         
         try {
             con = Conexao.getConexao();
@@ -225,9 +225,9 @@ public class Pedidodao {
         PreparedStatement ps = null;
         String produtos = null;
         String[] produtosSplit = null;
-        Clientedao clienteDao = new Clientedao();
-        Funcionariodao funcionarioDao = new Funcionariodao();
-        Produtodao produtoDao = new Produtodao();
+        ClienteDao clienteDao = new ClienteDao();
+        FuncionarioDao funcionarioDao = new FuncionarioDao();
+        ProdutoDao produtoDao = new ProdutoDao();
         
         try {
             con = Conexao.getConexao();
@@ -277,9 +277,9 @@ public class Pedidodao {
         PreparedStatement ps = null;
         String produtos = null;
         String[] produtosSplit = null;
-        Clientedao clienteDao = new Clientedao();
-        Funcionariodao funcionarioDao = new Funcionariodao();
-        Produtodao produtoDao = new Produtodao();        
+        ClienteDao clienteDao = new ClienteDao();
+        FuncionarioDao funcionarioDao = new FuncionarioDao();
+        ProdutoDao produtoDao = new ProdutoDao();        
 
         try {
             con = Conexao.getConexao();
