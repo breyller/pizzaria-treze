@@ -4,6 +4,7 @@ import br.com.pizzariatreze.dao.Clientedao;
 import br.com.pizzariatreze.dao.Funcionariodao;
 import br.com.pizzariatreze.dto.Clientedto;
 import br.com.pizzariatreze.dto.Funcionariodto;
+import br.com.pizzariatreze.util.Util;
 import java.util.Map;
 import java.util.ArrayList;
 
@@ -69,6 +70,18 @@ public class Funcionario extends Pessoa {
     }
 
     public boolean login(String usuario, String senha) {
+        
+        Funcionariodto funcionario = new Funcionariodto();
+        
+        String senhaMD5 = Util.criptografar(senha);
+        funcionario.setCpf(usuario);
+        funcionario.setSenha(senhaMD5);
+        
+        Funcionariodao func = new Funcionariodao();
+        
+        if(!func.search(funcionario).isEmpty())
+            return true;
+        
         return false;
     }
 

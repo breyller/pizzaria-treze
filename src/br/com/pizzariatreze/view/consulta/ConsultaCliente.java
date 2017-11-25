@@ -39,6 +39,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Consulta de Cliente");
@@ -50,6 +51,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
             }
         });
 
+        jLabelVoltar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelVoltar.setText("Voltar");
         jLabelVoltar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -75,7 +77,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Telefone", "Endereço"
+                "ID", "Nome", "Telefone", "EndereÃ§o"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

@@ -12,6 +12,9 @@ public class Funcionariodto extends Pessoadto {
         super(id,nome,endereco,telefone,cpf);
         this.setSalario(salario);
         this.setCargo(cargo);
+        
+        alterado.add("salario");
+        alterado.add("cargo");
     }
 
     public double getSalario() {
@@ -20,6 +23,8 @@ public class Funcionariodto extends Pessoadto {
 
     public void setSalario(double salario) {
         this.salario = salario;
+
+        if(!alterado.contains("salario")) alterado.add("salario");
     }
 
     public String getCargo() {
@@ -28,5 +33,7 @@ public class Funcionariodto extends Pessoadto {
 
     public void setCargo(String cargo) {
         this.cargo = cargo;
+        
+        if(!alterado.contains("cargo")) alterado.add("cargo");
     }
 }

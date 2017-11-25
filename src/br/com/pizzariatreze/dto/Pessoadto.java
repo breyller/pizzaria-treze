@@ -1,5 +1,8 @@
 package br.com.pizzariatreze.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pessoadto {
     
     private int id;
@@ -7,16 +10,26 @@ public class Pessoadto {
     private String endereco;
     private String telefone;
     private String cpf;
+    private String senha;
+    protected List alterado;
 
     public Pessoadto(){
+        this.alterado = new ArrayList<>();
     }
     
     public Pessoadto(int id, String nome, String endereco, String telefone, String cpf){
-        this.setId(id);
-        this.setNome(nome);
-        this.setEndereco(endereco);
-        this.setTelefone(telefone);
-        this.setCpf(cpf);
+        this.id = id;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.cpf = cpf;
+        
+        this.alterado = new ArrayList<>();
+        this.alterado.add("id");
+        this.alterado.add("nome");
+        this.alterado.add("endereco");
+        this.alterado.add("telefone");
+        this.alterado.add("cpf");
     }
     
     public int getId() {
@@ -25,6 +38,8 @@ public class Pessoadto {
 
     public void setId(int id) {
         this.id = id;
+        
+        if(!this.alterado.contains("id")) this.alterado.add("id");
     }
 
     public String getNome() {
@@ -33,6 +48,8 @@ public class Pessoadto {
 
     public void setNome(String nome) {
         this.nome = nome;
+        
+        if(!this.alterado.contains("nome")) this.alterado.add("nome");
     }
 
     public String getEndereco() {
@@ -41,6 +58,8 @@ public class Pessoadto {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+        
+        if(!this.alterado.contains("endereco")) this.alterado.add("endereco");
     }
 
     public String getTelefone() {
@@ -49,6 +68,8 @@ public class Pessoadto {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+        
+        if(!this.alterado.contains("telefone")) this.alterado.add("telefone");
     }
 
     public String getCpf() {
@@ -57,5 +78,21 @@ public class Pessoadto {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+        
+        if(!this.alterado.contains("cpf")) this.alterado.add("cpf");
+    }
+    
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+        
+        if(!this.alterado.contains("senha")) this.alterado.add("senha");
+    }
+    
+    public List getAlterado(){
+        return alterado;
     }
 }

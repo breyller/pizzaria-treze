@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import br.com.pizzariatreze.dto.Funcionariodto;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Funcionariodao {
     
@@ -178,5 +179,86 @@ public class Funcionariodao {
         }
         
         return result;
+    }
+    
+    public ArrayList<Funcionariodto> search(Funcionariodto funcionario) {
+
+        try{
+            con = Conexao.getConexao();
+            String sql = "SELECT * FROM funcionario";
+            PreparedStatement ps = null;
+
+            List parametros = new ArrayList<>();
+
+            if(funcionario.getId() > 0){
+                sql += " WHERE ID = ? ";
+                parametros.add(funcionario.getId());
+            }else{
+                List alt = funcionario.getAlterado();
+                String sqlWhere = "";
+                int index = 1;
+
+                if(alt.contains("nome")) {
+                    sqlWhere += " nome = ? ";
+                    parametros.add(funcionario.getNome());
+                }
+
+                if(alt.contains("endereco")){
+                    sqlWhere += " endereco = ? ";
+                    parametros.add(funcionario.getEndereco());
+                }
+
+                if(alt.contains("telefone")){
+                    sqlWhere += " telefone = ? ";
+                    parametros.add(funcionario.getTelefone());
+                }
+
+                if(alt.contains("cpf")){
+                    sqlWhere += " cpf = ? ";
+                    parametros.add(funcionario.getCpf());
+                }
+
+                if(alt.contains("salario")){
+                    sqlWhere += " salario = ? ";
+                    parametros.add(funcionario.getSalario());
+                }
+
+                if(alt.contains("cargo")){
+                    sqlWhere += " cargo = ? ";
+                    parametros.add(funcionario.getCargo());
+                }
+
+                if(sqlWhere.length() > 0) sql += " WHERE " + sqlWhere;
+            }
+
+            ps = con.prepareStatement(sql);
+            int index = 1;
+
+            for(Object i : parametros){
+                ps.setObject(index, i);
+                index++;
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            if(!rs.next()) {
+                return this.funcionarios;
+            }
+
+            do {
+                this.funcionario = new Funcionariodto();
+                this.funcionario.setId(rs.getInt("id"));
+                this.funcionario.setTelefone(rs.getString("telefone"));
+                this.funcionario.setNome(rs.getString("nome"));
+                this.funcionario.setEndereco(rs.getString("endereco"));
+                this.funcionario.setSalario(rs.getDouble("salario"));
+                this.funcionario.setCpf(rs.getString("cpf"));
+                this.funcionario.setCargo(rs.getString("cargo"));                
+                this.funcionarios.add(this.funcionario);
+            } while (rs.next());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return this.funcionarios;
     }    
 }
