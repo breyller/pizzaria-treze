@@ -1,7 +1,6 @@
 package br.com.pizzariatreze.dao;
 
 import br.com.pizzariatreze.bd.Conexao;
-import br.com.pizzariatreze.dto.MesaDto;
 import br.com.pizzariatreze.dto.ReservaDto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
