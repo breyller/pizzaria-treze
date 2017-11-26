@@ -193,8 +193,7 @@ public class ProdutoDao {
         }
     }
     
-    public String save(ProdutoDto produto) {
-        String result = "Erro ao inserir/atualizar o cliente";
+    public boolean save(ProdutoDto produto) {
         String query = null;
         PreparedStatement ps = null;
         String ingredientes = null;
@@ -215,9 +214,11 @@ public class ProdutoDao {
                     ps.setInt(4, produto.getId());
                     ps.executeUpdate();
                     
-                    return "Produto atualizado com sucesso.";
+                    return true;
                 } catch (SQLException ex) {
-                    return "Erro ao atualizar produto: " + ex.getMessage();
+                    //criar log
+                    //"Erro ao atualizar produto: " + ex.getMessage();
+                    return false;
                 }
             }
         }
@@ -237,11 +238,29 @@ public class ProdutoDao {
                 ps.setInt(5, produto.getId());
             }
             ps.executeUpdate();
-            result = "Produto criado com sucesso.";
+            return true;
         } catch (SQLException ex) {
-            return "Erro ao inserir produto: " + ex.getMessage();
+            //criar log
+            //"Erro ao inserir produto: " + ex.getMessage();
+            return false;
         }
+    }
+    
+    public boolean delete(int id) {
+        String query = null;
+        PreparedStatement ps = null;
         
-        return result;
+        query = "DELETE produto WHERE id = ?";
+        try {
+            ps = Conexao.getConexao().prepareStatement(query);
+            ps.setInt(1, id);
+            ps.execute();
+
+            return true;
+        } catch (SQLException ex) {
+            //criar log
+            //"Erro ao excluir produto: " + ex.getMessage();
+            return false;
+        }
     }
 }
