@@ -11,7 +11,7 @@ import java.util.List;
 
 public class FuncionarioDao {
     
-    private ArrayList<FuncionarioDto> funcionarios = null;
+    private ArrayList<FuncionarioDto> funcionarios = new ArrayList<FuncionarioDto>();
     private FuncionarioDto funcionario = null;
     private Connection con = null;
     
@@ -133,7 +133,7 @@ public class FuncionarioDao {
         }
     }
     
-    public String save(FuncionarioDto funcionario) {
+    public boolean save(FuncionarioDto funcionario) {
         String result = "Erro ao inserir/atualizar o funcionario";
         String query = null;
         PreparedStatement ps = null;
@@ -153,9 +153,11 @@ public class FuncionarioDao {
                     ps.setInt(7, funcionario.getId());
                     ps.executeUpdate();
                     
-                    return "Funcionario atualizado com sucesso.";
+                    return true;
                 } catch (SQLException ex) {
-                    return "Erro ao atualizar funcionario: " + ex.getMessage();
+                    //criar log
+                    //"Erro ao atualizar funcionario: " + ex.getMessage();
+                    return false;
                 }
             }
         }
@@ -173,12 +175,12 @@ public class FuncionarioDao {
                 ps.setInt(7, funcionario.getId());
             }
             ps.executeUpdate();
-            result = "Funcionario criado com sucesso.";
+            return true;
         } catch (SQLException ex) {
-            return "Erro ao inserir funcionario: " + ex.getMessage();
+            //criar log
+            //"Erro ao inserir funcionario: " + ex.getMessage();
+            return false;
         }
-        
-        return result;
     }
     
     public ArrayList<FuncionarioDto> search(FuncionarioDto funcionario) {
@@ -260,5 +262,23 @@ public class FuncionarioDao {
             ex.printStackTrace();
         }
         return this.funcionarios;
+    }
+    
+    public boolean delete(int id) {
+        String query = null;
+        PreparedStatement ps = null;
+        
+        query = "DELETE funcionario WHERE id = ?";
+        try {
+            ps = Conexao.getConexao().prepareStatement(query);
+            ps.setInt(1, id);
+            ps.execute();
+
+            return true;
+        } catch (SQLException ex) {
+            //criar log
+            //"Erro ao excluir funcionario: " + ex.getMessage();
+            return false;
+        }
     }    
 }
