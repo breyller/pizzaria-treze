@@ -5,6 +5,11 @@
  */
 package br.com.pizzariatreze.view.consulta;
 
+import br.com.pizzariatreze.controller.ClienteController;
+import br.com.pizzariatreze.tablemodel.ClienteTableModel;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author gabriel
@@ -32,14 +37,19 @@ public class ConsultaCliente extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabelVoltar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTelefone = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableCliente = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Consulta de Cliente");
@@ -61,26 +71,16 @@ public class ConsultaCliente extends javax.swing.JFrame {
 
         jLabel2.setText("Pesquisa por telefone:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtTelefoneActionPerformed(evt);
             }
         });
 
         jButton2.setText("Exibir Todos");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID", "Nome", "Telefone", "Endereço"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jTableCliente.setModel(new ClienteTableModel());
+        jScrollPane1.setViewportView(jTableCliente);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,7 +97,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
                                 .addGap(15, 15, 15)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1)))
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -120,7 +120,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -168,9 +168,29 @@ public class ConsultaCliente extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jLabelVoltarMouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtTelefoneActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        ClienteController clienteCtrl = new ClienteController();
+        atualizar(clienteCtrl.listar(txtTelefone.getText()));
+    }//GEN-LAST:event_formWindowOpened
+
+    public void atualizar(List<Object> lista) {
+        try {
+            /* Captura o modelo da tabela */
+            ClienteTableModel modelo = (ClienteTableModel) jTableCliente.getModel();
+            
+            /* Copia os dados da consulta para a tabela */
+            modelo.adicionar(lista);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao tentar buscar um Cliente");
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -216,7 +236,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jTableCliente;
+    private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }
