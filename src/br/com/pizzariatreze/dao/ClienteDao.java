@@ -7,10 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import br.com.pizzariatreze.dto.ClienteDto;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteDao {
     
-    private ArrayList<ClienteDto> clientes = null;
+    private ArrayList<ClienteDto> clientes = new ArrayList<>();
     private ClienteDto cliente = null;
     private Connection con = null;
     
@@ -123,8 +124,7 @@ public class ClienteDao {
         }
     }
     
-    public String save(ClienteDto cliente) {
-        String result = "Erro ao inserir/atualizar o cliente";
+    public boolean save(ClienteDto cliente) {
         String query = null;
         PreparedStatement ps = null;
         
@@ -141,29 +141,100 @@ public class ClienteDao {
                     ps.setInt(5, cliente.getId());
                     ps.executeUpdate();
                     
-                    return "Cliente atualizado com sucesso.";
+                    return true;
                 } catch (SQLException ex) {
-                    return "Erro ao atualizar cliente: " + ex.getMessage();
+                    //criar log
+                    //"Erro ao atualizar cliente: " + ex.getMessage();
+                    return false;
                 }
             }
         }
         
         try {
-            query = cliente.getId() != 0 ? "INSERT INTO cliente(nome, telefone, cpf, endereco, id) VALUES (?,?,?,?,?)" : "INSERT INTO cliente(nome, telefone, cpf, endereco) VALUES (?,?,?,?)";
+            query = "INSERT INTO cliente(nome, telefone, cpf, endereco) VALUES (?,?,?,?)";
             ps = Conexao.getConexao().prepareStatement(query);
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getTelefone());
             ps.setString(3, cliente.getCpf());
             ps.setString(4, cliente.getEndereco());
-            if(cliente.getId() != 0) {
-                ps.setInt(5, cliente.getId());
-            }
+    
             ps.executeUpdate();
-            result = "Cliente criado com sucesso.";
+            return true;
         } catch (SQLException ex) {
-            return "Erro ao inserir cliente: " + ex.getMessage();
+            //criar log
+            //"Erro ao inserir cliente: " + ex.getMessage();
+            return false;
+        }        
+    }
+
+    public List<Object> search(ClienteDto cliente) {
+ 
+        List<Object> clientesObj = new ArrayList<>();
+        
+        try{
+            con = Conexao.getConexao();
+            String sql = "SELECT * FROM cliente";
+            PreparedStatement ps = null;
+        
+            List parametros = new ArrayList<>();
+
+            if(cliente.getId() > 0){
+                sql += " WHERE ID = ? ";
+                parametros.add(cliente.getId());
+            }else{
+                List alt = cliente.getAlterado();
+                String sqlWhere = "";
+                int index = 1;
+
+                if(alt.contains("nome")) {
+                    sqlWhere += " AND nome = ? ";
+                    parametros.add(cliente.getNome());
+                }
+
+                if(alt.contains("endereco")){
+                    sqlWhere += " AND endereco = ? ";
+                    parametros.add(cliente.getEndereco());
+                }
+
+                if(alt.contains("telefone")){
+                    sqlWhere += " AND telefone = ? ";
+                    parametros.add(cliente.getTelefone());
+                }
+
+                if(alt.contains("cpf")){
+                    sqlWhere += " AND cpf = ? ";
+                    parametros.add(cliente.getCpf());
+                }
+
+                if(sqlWhere.length() > 0) sql += " WHERE 1=1 " + sqlWhere;
+            }
+
+            ps = con.prepareStatement(sql);
+            int index = 1;
+
+            for(Object i : parametros){
+                ps.setObject(index, i);
+                index++;
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                do {
+                    this.cliente = new ClienteDto();
+                    this.cliente.setId(rs.getInt("id"));
+                    this.cliente.setTelefone(rs.getString("telefone"));
+                    this.cliente.setNome(rs.getString("nome"));
+                    this.cliente.setEndereco(rs.getString("endereco"));
+                    this.cliente.setCpf(rs.getString("cpf"));
+                    this.clientes.add(this.cliente);
+                    clientesObj.add((Object)this.cliente);
+                } while (rs.next());
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
         
-        return result;
+        return clientesObj;
     }
 }
