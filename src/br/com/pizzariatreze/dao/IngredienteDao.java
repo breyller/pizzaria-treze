@@ -126,8 +126,7 @@ public class IngredienteDao {
         }
     }
     
-    public String save(IngredienteDto ingrediente) {
-        String result = "Erro ao inserir/atualizar o ingrediente";
+    public boolean save(IngredienteDto ingrediente) {
         String query = null;
         PreparedStatement ps = null;
         
@@ -144,9 +143,11 @@ public class IngredienteDao {
                     ps.setInt(5, ingrediente.getId());
                     ps.executeUpdate();
                     
-                    return "Ingrediente atualizado com sucesso.";
+                    return true;
                 } catch (SQLException ex) {
-                    return "Erro ao atualizar ingrediente: " + ex.getMessage();
+                    //criar log
+                    //"Erro ao atualizar ingrediente: " + ex.getMessage();
+                    return false;
                 }
             }
         }
@@ -162,11 +163,29 @@ public class IngredienteDao {
                 ps.setInt(5, ingrediente.getId());
             }
             ps.executeUpdate();
-            result = "Ingrediente criado com sucesso.";
+            return true;
         } catch (SQLException ex) {
-            return "Erro ao inserir ingrediente: " + ex.getMessage();
+            //criar log
+            //"Erro ao inserir ingrediente: " + ex.getMessage();
+            return false;
         }
+    }
+
+    public boolean delete(int id) {
+        String query = null;
+        PreparedStatement ps = null;
         
-        return result;
-    }    
+        query = "DELETE ingrediente WHERE id = ?";
+        try {
+            ps = Conexao.getConexao().prepareStatement(query);
+            ps.setInt(1, id);
+            ps.execute();
+
+            return true;
+        } catch (SQLException ex) {
+            //criar log
+            //"Erro ao excluir ingrediente: " + ex.getMessage();
+            return false;
+        }
+    }
 }
