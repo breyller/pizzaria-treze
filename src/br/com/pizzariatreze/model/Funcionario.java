@@ -34,8 +34,7 @@ public class Funcionario extends Pessoa {
         return result;
     }
     
-    public String save(Map funcionario) {
-        String result = null;
+    public boolean save(Map funcionario) {
         FuncionarioDao funcionarioDao = new FuncionarioDao();
                 
         int idFuncionario = (int)funcionario.get("id");
@@ -48,34 +47,24 @@ public class Funcionario extends Pessoa {
         
         FuncionarioDto funcionarioDto = new FuncionarioDto(idFuncionario,nomeFuncionario,enderecoFuncionario,telefoneFuncionario,cpfFuncionario,salarioFuncionario,cargoFuncionario);
         
-        result = funcionarioDao.save(funcionarioDto);
-        return result;
+        return funcionarioDao.save(funcionarioDto);
     }
     
     public boolean cadastrarCliente(ClienteDto cli) {
-        boolean result = false;
-        String tentativa = null;
         ClienteDao clienteDao = new ClienteDao(); 
-        
-        try {
-            tentativa = clienteDao.save(cli);
-            if (tentativa == "Cliente criado com sucesso." || tentativa == "Cliente atualizado com sucesso.") {
-                result = true;
-            }
-        } catch(Exception e) {
-            result = false;
-        }
-        
-        return result;
+        return clienteDao.save(cli);
     }
 
-    public boolean login(String usuario, String senha) {
+    public boolean login(String usuario, char[] senha) {
         
         FuncionarioDto funcionario = new FuncionarioDto();
         
-        String senhaMD5 = Util.criptografar(senha);
-        funcionario.setCpf(usuario);
-        funcionario.setSenha(senhaMD5);
+        char[] chars = senha;
+        String password = String.valueOf(chars);
+        String cpfLimpo = usuario.replaceAll("[\\.\\-]", "");
+        String senhaCript = Util.criptografar(password);
+        funcionario.setCpf(cpfLimpo);
+        funcionario.setSenha(senhaCript);
         
         FuncionarioDao func = new FuncionarioDao();
         
