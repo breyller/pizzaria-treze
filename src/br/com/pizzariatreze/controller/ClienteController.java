@@ -16,4 +16,8 @@ public class ClienteController {
         return cliente.listar(telefone);
     }
     
+    public List<Object> listar() {
+        Cliente cliente = new Cliente();
+        return cliente.listar();
+    }    
 }
