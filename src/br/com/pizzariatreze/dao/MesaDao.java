@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MesaDao {
 
@@ -143,6 +144,7 @@ public class MesaDao {
         PreparedStatement ps = null;
         String reservas = null;
         String[] reservasSplit = null;
+        boolean codPresente = false;
         
         try {
             con = Conexao.getConexao();
@@ -164,7 +166,16 @@ public class MesaDao {
                 for (int i = 0; i < reservasSplit.length; i++) {
                     this.mesa.setCodReserva(Integer.parseInt(reservasSplit[i]));
                 }
-                this.mesas.add(this.mesa);
+                
+                for (int j = 0; j < this.mesa.getCodReserva().size(); j++) {
+                    if(this.mesa.getCodReserva().get(j) == codigo) {
+                        codPresente = true;
+                    }
+                }
+                
+                if(codPresente) {
+                    this.mesas.add(this.mesa);
+                }
                 return this.mesas;
             } while (rs.next());
         } catch (SQLException e) {
@@ -182,7 +193,7 @@ public class MesaDao {
     }
     
     public String save(MesaDto mesa) {
-        String result = "Erro ao inserir/atualizar o cliente";
+        String result = "Erro ao inserir/atualizar o mesa";
         String query = null;
         PreparedStatement ps = null;
         String reservas = null;
@@ -211,7 +222,7 @@ public class MesaDao {
         }
         
         try {
-            query = mesa.getId() != 0 ? "INSERT INTO mesa(numero, qtd_lugares, reservas, id) VALUES (?,?,?,?)" : "INSERT INTO cliente(numero, qtd_lugares, reservas) VALUES (?,?,?)";
+            query = mesa.getId() != 0 ? "INSERT INTO mesa(numero, qtd_lugares, reservas, id) VALUES (?,?,?,?)" : "INSERT INTO mesa(numero, qtd_lugares, reservas) VALUES (?,?,?)";
             ps = Conexao.getConexao().prepareStatement(query);
             ps.setInt(1, mesa.getNumero());
             ps.setInt(2, mesa.getQtdLugares());
@@ -230,5 +241,71 @@ public class MesaDao {
         }
         
         return result;
+    }
+    
+    public List<Object> search(MesaDto mesa) {
+        
+        List<Object> mesasObj = new ArrayList<>();
+        this.mesa = null;
+
+        try{
+            con = Conexao.getConexao();
+            String sql = "SELECT * FROM mesa";
+            PreparedStatement ps = null;
+        
+            List parametros = new ArrayList<>();
+            
+            if(mesa.getId() > 0){
+                sql += " WHERE ID = ? ";
+                parametros.add(mesa.getId());
+            }else{
+                List alt = mesa.getAlterado();
+                String sqlWhere = "";
+                int index = 1;
+
+                if(alt.contains("numero")) {
+                    sqlWhere += " AND nome = ? ";
+                    parametros.add(mesa.getNumero());
+                }
+
+                if(alt.contains("qtd_lugares")){
+                    sqlWhere += " AND qtd_lugares = ? ";
+                    parametros.add(mesa.getQtdLugares());
+                }
+
+                if(alt.contains("reservas")){
+                    sqlWhere += " AND reservas = ? ";
+                    parametros.add(mesa.getCodReserva());
+                }
+
+                if(sqlWhere.length() > 0) sql += " WHERE 1=1 " + sqlWhere;
+            }
+
+            ps = con.prepareStatement(sql);
+            int index = 1;
+
+            for(Object i : parametros){
+                ps.setObject(index, i);
+                index++;
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                do {
+                    this.mesa = new MesaDto();
+                    this.mesa.setId(rs.getInt("id"));
+                    this.mesa.setNumero(rs.getInt("numero"));
+                    this.mesa.setQtdLugares(rs.getInt("qtd_lugares"));
+                    this.mesa.setCodReserva(rs.getInt("reservas"));
+                    this.mesas.add(this.mesa);
+                    mesasObj.add((Object)this.mesa);
+                } while (rs.next());
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return mesasObj;
     }
 }
