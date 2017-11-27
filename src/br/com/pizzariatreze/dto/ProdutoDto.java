@@ -1,6 +1,7 @@
 package br.com.pizzariatreze.dto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ProdutoDto {
     
@@ -48,6 +49,7 @@ public class ProdutoDto {
 
     public void setComposicao(IngredienteDto ingrediente) {
         this.composicao.add(ingrediente);
+        Collections.sort(this.composicao, (ingrediente1, ingrediente2) -> ingrediente1.getId() - ingrediente2.getId());
     }
     
     public void deleteComposicaoByPos(int posicao) {
