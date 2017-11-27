@@ -323,8 +323,7 @@ public class PedidoDao {
         }
     }
     
-    public String save(PedidoDto pedido) {
-        String result = "Erro ao inserir/atualizar o cliente";
+    public boolean save(PedidoDto pedido) {
         String query = null;
         PreparedStatement ps = null;
         String produtos = null;
@@ -349,15 +348,17 @@ public class PedidoDao {
                     ps.setInt(9, pedido.getId());
                     ps.executeUpdate();
                     
-                    return "Pedido atualizado com sucesso.";
+                    return true;
                 } catch (SQLException ex) {
-                    return "Erro ao atualizar pedido: " + ex.getMessage();
+                    //Criar log
+                    //"Erro ao atualizar pedido: " + ex.getMessage();
+                    return false;
                 }
             }
         }
         
         try {
-            query = pedido.getId() != 0 ? "INSERT INTO pedido(data, status, descricao, tipo, preco, id_cliente, id_funcionario, composicao, id) VALUES (?,?,?,?,?,?,?,?,?)" : "INSERT INTO pedido(data, status, descricao, tipo, preco, id_cliente, id_funcionario, composicao) VALUES (?,?,?,?,?,?,?,?)";
+            query = "INSERT INTO pedido(data, status, descricao, tipo, preco, id_cliente, id_funcionario, composicao) VALUES (?,?,?,?,?,?,?,?)";
             ps = Conexao.getConexao().prepareStatement(query);
             ps.setString(1, pedido.getData());
             ps.setInt(2, pedido.getStatus());
@@ -365,7 +366,6 @@ public class PedidoDao {
             ps.setInt(4, pedido.getTipo());
             ps.setDouble(5, pedido.getPreco());
             ps.setInt(6, pedido.getCliente().getId());
-            ps.setInt(7, pedido.getFuncionario().getId());
             produtos = String.valueOf(pedido.getComposicao().get(0).getId());
             for(int i = 1; i < pedido.getComposicao().size(); i++) {
                 produtos = produtos + "," + String.valueOf(pedido.getComposicao().get(i).getId());
@@ -373,11 +373,11 @@ public class PedidoDao {
             ps.setString(8, produtos);
             ps.setInt(9, pedido.getId());
             ps.executeUpdate();
-            result = "Pedido criado com sucesso.";
+            return true;
         } catch (SQLException ex) {
-            return "Erro ao inserir pedido: " + ex.getMessage();
+            //Criar log
+            //"Erro ao inserir pedido: " + ex.getMessage();
+            return false;
         }
-        
-        return result;
     }
 }
