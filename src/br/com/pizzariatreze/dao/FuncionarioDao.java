@@ -183,8 +183,10 @@ public class FuncionarioDao {
         }
     }
     
-    public ArrayList<FuncionarioDto> search(FuncionarioDto funcionario) {
-
+    public List<Object> search(FuncionarioDto funcionario) {
+        
+        List<Object> funcionariosObj = new ArrayList<>();
+        
         try{
             con = Conexao.getConexao();
             String sql = "SELECT * FROM funcionario";
@@ -243,25 +245,25 @@ public class FuncionarioDao {
 
             ResultSet rs = ps.executeQuery();
 
-            if(!rs.next()) {
-                return this.funcionarios;
+            if(rs.next()) { 
+                do {
+                    this.funcionario = new FuncionarioDto();
+                    this.funcionario.setId(rs.getInt("id"));
+                    this.funcionario.setTelefone(rs.getString("telefone"));
+                    this.funcionario.setNome(rs.getString("nome"));
+                    this.funcionario.setEndereco(rs.getString("endereco"));
+                    this.funcionario.setSalario(rs.getDouble("salario"));
+                    this.funcionario.setCpf(rs.getString("cpf"));
+                    this.funcionario.setCargo(rs.getString("cargo"));                
+                    this.funcionarios.add(this.funcionario);
+                    funcionariosObj.add((Object)this.funcionario);
+                } while (rs.next());
             }
-
-            do {
-                this.funcionario = new FuncionarioDto();
-                this.funcionario.setId(rs.getInt("id"));
-                this.funcionario.setTelefone(rs.getString("telefone"));
-                this.funcionario.setNome(rs.getString("nome"));
-                this.funcionario.setEndereco(rs.getString("endereco"));
-                this.funcionario.setSalario(rs.getDouble("salario"));
-                this.funcionario.setCpf(rs.getString("cpf"));
-                this.funcionario.setCargo(rs.getString("cargo"));                
-                this.funcionarios.add(this.funcionario);
-            } while (rs.next());
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return this.funcionarios;
+        
+        return funcionariosObj;
     }
     
     public boolean delete(int id) {
