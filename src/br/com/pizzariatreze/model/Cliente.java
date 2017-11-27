@@ -52,4 +52,16 @@ public class Cliente extends Pessoa {
             return lista;
             
     }
+    
+    public List<Object> listar() {
+        /* Criação do modelo */
+            ClienteDto cliente = new ClienteDto();
+ 
+            /* Criação do DAO */
+            ClienteDao ddao = new ClienteDao();
+            List<Object> lista;
+            lista = ddao.search(cliente);
+            
+            return lista;    
+    }
 }
