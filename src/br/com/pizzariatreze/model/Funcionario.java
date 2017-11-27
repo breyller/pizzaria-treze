@@ -1,12 +1,11 @@
 package br.com.pizzariatreze.model;
 
-import br.com.pizzariatreze.dao.ClienteDao;
 import br.com.pizzariatreze.dao.FuncionarioDao;
-import br.com.pizzariatreze.dto.ClienteDto;
 import br.com.pizzariatreze.dto.FuncionarioDto;
 import br.com.pizzariatreze.util.Util;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Funcionario extends Pessoa {
 
@@ -36,23 +35,22 @@ public class Funcionario extends Pessoa {
     
     public boolean save(Map funcionario) {
         FuncionarioDao funcionarioDao = new FuncionarioDao();
-                
-        int idFuncionario = (int)funcionario.get("id");
-        String nomeFuncionario = (String)funcionario.get("nome");
-        String enderecoFuncionario = (String)funcionario.get("endereco");
-        String telefoneFuncionario = (String)funcionario.get("telefone");
-        String cpfFuncionario = (String)funcionario.get("cpf");
-        double salarioFuncionario = (double)funcionario.get("salario");
-        String cargoFuncionario = (String)funcionario.get("cargo");
-        
-        FuncionarioDto funcionarioDto = new FuncionarioDto(idFuncionario,nomeFuncionario,enderecoFuncionario,telefoneFuncionario,cpfFuncionario,salarioFuncionario,cargoFuncionario);
-        
+        FuncionarioDto funcionarioDto = new FuncionarioDto();
+
+        if(funcionario.containsKey("id")) funcionarioDto.setId((int)funcionario.get("id"));
+        if(funcionario.containsKey("nome")) funcionarioDto.setNome((String)funcionario.get("nome"));
+        if(funcionario.containsKey("endereco")) funcionarioDto.setEndereco((String)funcionario.get("endereco"));
+        if(funcionario.containsKey("telefone")) funcionarioDto.setTelefone((String)funcionario.get("telefone"));
+        if(funcionario.containsKey("cpf")) funcionarioDto.setCpf(funcionario.get("cpf").toString().replaceAll("[\\.\\-]", ""));
+        if(funcionario.containsKey("salario")) funcionarioDto.setSalario((double)funcionario.get("salario"));
+        if(funcionario.containsKey("cargo")) funcionarioDto.setCargo((String)funcionario.get("cargo"));
+ 
         return funcionarioDao.save(funcionarioDto);
-    }
+    } 
     
-    public boolean cadastrarCliente(ClienteDto cli) {
-        ClienteDao clienteDao = new ClienteDao(); 
-        return clienteDao.save(cli);
+    public boolean cadastrarFuncionario(FuncionarioDto cli) {
+        FuncionarioDao funcionarioDao = new FuncionarioDao(); 
+        return funcionarioDao.save(cli);
     }
 
     public boolean login(String usuario, char[] senha) {
@@ -72,6 +70,35 @@ public class Funcionario extends Pessoa {
             return true;
         
         return false;
+    }
+
+    public List<Object> listar(int id) {
+        /* Criação do modelo */
+        FuncionarioDto funcionario = new FuncionarioDto();
+
+        if(id > 0)
+            funcionario.setId(id);
+
+        /* Criação do DAO */
+        FuncionarioDao ddao = new FuncionarioDao();
+        List<Object> lista;
+        lista = ddao.search(funcionario);
+
+        return lista;
+            
+    }
+    
+    public List<Object> listar() {
+        /* Criação do modelo */
+        FuncionarioDto funcionario = new FuncionarioDto();
+
+        /* Criação do DAO */
+        FuncionarioDao ddao = new FuncionarioDao();
+        List<Object> lista;
+        lista = ddao.search(funcionario);
+
+        return lista;
+            
     }
 
 }
