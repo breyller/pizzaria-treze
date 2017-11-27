@@ -73,6 +73,11 @@ public class ConsultaCliente extends javax.swing.JFrame {
         });
 
         jButton2.setText("Exibir Todos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTableCliente.setModel(new ClienteTableModel());
         jScrollPane1.setViewportView(jTableCliente);
@@ -154,6 +159,8 @@ public class ConsultaCliente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        ClienteController clienteCtrl = new ClienteController();
+        atualizar(clienteCtrl.listar(txtTelefone.getText()));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabelVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelVoltarMouseClicked
@@ -172,6 +179,11 @@ public class ConsultaCliente extends javax.swing.JFrame {
         ClienteController clienteCtrl = new ClienteController();
         atualizar(clienteCtrl.listar(txtTelefone.getText()));
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ClienteController clienteCtrl = new ClienteController();
+        atualizar(clienteCtrl.listar());
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void atualizar(List<Object> lista) {
         try {
