@@ -13,7 +13,7 @@ public class Produto {
         if(produto.containsKey("id")) produtoDto.setId((int)produto.get("id"));
         if(produto.containsKey("nome")) produtoDto.setNome((String)produto.get("nome"));
         if(produto.containsKey("descricao")) produtoDto.setDescricao((String)produto.get("descricao"));
-        if(produto.containsKey("preco")) produtoDto.setPreco((double)produto.get("preco"));
+        if(produto.containsKey("preco")) produtoDto.setPreco(Double.parseDouble((String)produto.get("preco")));
  
         return produtoDao.save(produtoDto);
     }  
