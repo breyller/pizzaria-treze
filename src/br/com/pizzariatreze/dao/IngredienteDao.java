@@ -7,12 +7,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import br.com.pizzariatreze.dto.IngredienteDto;
 import java.util.ArrayList;
+import java.util.List;
 
 public class IngredienteDao {
     
-    private ArrayList<IngredienteDto> ingredientes = null;
-    private IngredienteDto ingrediente = null;
+    private ArrayList<IngredienteDto> ingredientes;
+    private IngredienteDto ingrediente;
     private Connection con = null;
+    
+    public IngredienteDao(){
+        this.ingredientes = new ArrayList<>();
+    }
     
     public IngredienteDto getById(int id) {
         this.ingrediente = null;
@@ -187,5 +192,76 @@ public class IngredienteDao {
             //"Erro ao excluir ingrediente: " + ex.getMessage();
             return false;
         }
+    }
+
+    public List<Object> search(IngredienteDto ingrediente) {
+ 
+        List<Object> ingredientesObj = new ArrayList<>();
+        
+        try{
+            con = Conexao.getConexao();
+            String sql = "SELECT * FROM ingrediente";
+            PreparedStatement ps = null;
+        
+            List parametros = new ArrayList<>();
+
+            if(ingrediente.getId() > 0){
+                sql += " WHERE ID = ? ";
+                parametros.add(ingrediente.getId());
+            }else{
+                List alt = ingrediente.getAlterado();
+                String sqlWhere = "";
+                int index = 1;
+
+                if(alt.contains("nome")) {
+                    sqlWhere += " AND nome = ? ";
+                    parametros.add(ingrediente.getNome());
+                }
+
+                if(alt.contains("descricao")){
+                    sqlWhere += " AND descricao = ? ";
+                    parametros.add(ingrediente.getDescricao());
+                }
+
+                if(alt.contains("quantidade")){
+                    sqlWhere += " AND quantidade = ? ";
+                    parametros.add(ingrediente.getQuantidade());
+                }
+
+                if(alt.contains("preco")){
+                    sqlWhere += " AND preco = ? ";
+                    parametros.add(ingrediente.getValor());
+                }
+
+                if(sqlWhere.length() > 0) sql += " WHERE 1=1 " + sqlWhere;
+            }
+
+            ps = con.prepareStatement(sql);
+            int index = 1;
+
+            for(Object i : parametros){
+                ps.setObject(index, i);
+                index++;
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                do {
+                    this.ingrediente = new IngredienteDto();
+                    this.ingrediente.setId(rs.getInt("id"));
+                    this.ingrediente.setValor(rs.getDouble("preco"));
+                    this.ingrediente.setNome(rs.getString("nome"));
+                    this.ingrediente.setDescricao(rs.getString("descricao"));
+                    this.ingrediente.setQuantidade(rs.getInt("quantidade"));
+                    this.ingredientes.add(this.ingrediente);
+                    ingredientesObj.add((Object)this.ingrediente);
+                } while (rs.next());
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return ingredientesObj;
     }
 }
