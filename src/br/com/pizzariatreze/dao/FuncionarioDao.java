@@ -134,14 +134,13 @@ public class FuncionarioDao {
     }
     
     public boolean save(FuncionarioDto funcionario) {
-        String result = "Erro ao inserir/atualizar o funcionario";
         String query = null;
         PreparedStatement ps = null;
         
         if(funcionario.getId() != 0) {
             FuncionarioDto funcionarioBD = this.getById(funcionario.getId());
             if(funcionarioBD != null) {
-                query = "UPDATE funcionario SET nome = ?, telefone = ?, cpf = ?, endereco = ?, cargo = ?, salario = ? WHERE id = ?";
+                query = "UPDATE funcionario SET nome = ?, telefone = ?, cpf = ?, endereco = ?, cargo = ?, salario = ?, senha = ? WHERE id = ?";
                 try {
                     ps = Conexao.getConexao().prepareStatement(query);
                     ps.setString(1, funcionario.getNome());
@@ -150,7 +149,8 @@ public class FuncionarioDao {
                     ps.setString(4, funcionario.getEndereco());
                     ps.setString(5, funcionario.getCargo());
                     ps.setDouble(6, funcionario.getSalario());
-                    ps.setInt(7, funcionario.getId());
+                    ps.setString(7, funcionario.getSenha());
+                    ps.setInt(8, funcionario.getId());
                     ps.executeUpdate();
                     
                     return true;
@@ -163,7 +163,7 @@ public class FuncionarioDao {
         }
         
         try {
-            query = funcionario.getId() != 0 ? "INSERT INTO funcionario(nome, telefone, cpf, endereco, cargo, salario, id) VALUES (?,?,?,?,?,?,?)" : "INSERT INTO funcionario(nome, telefone, cpf, endereco, cargo, salario) VALUES (?,?,?,?,?,?)";
+            query = "INSERT INTO funcionario(nome, telefone, cpf, endereco, cargo, salario, senha) VALUES (?,?,?,?,?,?,?)";
             ps = Conexao.getConexao().prepareStatement(query);
             ps.setString(1, funcionario.getNome());
             ps.setString(2, funcionario.getTelefone());
@@ -171,9 +171,8 @@ public class FuncionarioDao {
             ps.setString(4, funcionario.getEndereco());
             ps.setString(5, funcionario.getCargo());
             ps.setDouble(6, funcionario.getSalario());
-            if(funcionario.getId() != 0) {
-                ps.setInt(7, funcionario.getId());
-            }
+            ps.setString(7, funcionario.getSenha());
+
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
