@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS `ingrediente` CASCADE;
 
 CREATE TABLE `ingrediente` (
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`preco` DOUBLE(2, 0) NOT NULL,
+	`preco` DOUBLE NOT NULL,
 	`descricao` VARCHAR(255) NOT NULL,
 	`quantidade` INT(11) UNSIGNED NOT NULL,
 	`nome` VARCHAR(63) NOT NULL,
@@ -73,7 +73,7 @@ DROP TABLE IF EXISTS `produto` CASCADE;
 
 CREATE TABLE `produto` (
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`preco` DOUBLE(2, 0) NOT NULL,
+	`preco` DOUBLE NOT NULL,
 	`nome` VARCHAR(127) NOT NULL,
 	`composicao` VARCHAR(511) NOT NULL,
 	PRIMARY KEY (`id`))
@@ -101,7 +101,7 @@ CREATE TABLE `pedido` (
 	`status` TINYINT(3) NOT NULL,
 	`descricao` VARCHAR(255) NOT NULL,
 	`tipo` TINYINT(3) NOT NULL,
-	`preco` DOUBLE(2, 0) NOT NULL,
+	`preco` DOUBLE NOT NULL,
 	`id_cliente` INT(11) UNSIGNED NOT NULL,
 	`id_funcionario` INT(11) UNSIGNED NOT NULL,
 	`composicao` VARCHAR(255) NOT NULL,
