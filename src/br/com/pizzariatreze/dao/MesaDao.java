@@ -275,7 +275,15 @@ public class MesaDao {
 
                 if(alt.contains("reservas")){
                     sqlWhere += " AND reservas = ? ";
-                    parametros.add(mesa.getCodReserva());
+                    ArrayList<Integer> reservas = mesa.getCodReserva();
+                    String strReservas = "";
+                    for(int res : reservas){
+                        strReservas += String.valueOf(res) + ",";
+                    }
+
+                    strReservas = strReservas.substring(-1);
+
+                    parametros.add(strReservas);
                 }
 
                 if(sqlWhere.length() > 0) sql += " WHERE 1=1 " + sqlWhere;
@@ -297,8 +305,15 @@ public class MesaDao {
                     this.mesa.setId(rs.getInt("id"));
                     this.mesa.setNumero(rs.getInt("numero"));
                     this.mesa.setQtdLugares(rs.getInt("qtd_lugares"));
-                    this.mesa.setCodReserva(rs.getInt("reservas"));
-                    this.mesas.add(this.mesa);
+                    String reservas = rs.getString("reservas");
+                   /* 
+                    if(reservas.length() > 1){
+                        String[] reservasSplit = reservas.split(",");
+                        for (int i = 0; i < reservasSplit.length; i++) {
+                            this.mesa.setCodReserva(Integer.parseInt(reservasSplit[i]));
+                        }
+                    }*/
+                    
                     mesasObj.add((Object)this.mesa);
                 } while (rs.next());
             }
