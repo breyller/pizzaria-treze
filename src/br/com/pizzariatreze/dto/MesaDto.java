@@ -69,10 +69,6 @@ public class MesaDto {
         if(!this.alterado.contains("qtdLugares")) this.alterado.add("qtdLugares");
     }
 
-    public Object getStatus() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public List getAlterado() {
         return this.alterado;
     }
