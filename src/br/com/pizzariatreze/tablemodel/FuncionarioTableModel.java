@@ -7,7 +7,7 @@ import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 
 public class FuncionarioTableModel extends AbstractTableModel {
-    /* Lista para armazenar os cabeÃ§alhos da tabela */
+    /* Lista para armazenar os cabeçalhos da tabela */
 
     private Vector colunas;
 
@@ -15,14 +15,14 @@ public class FuncionarioTableModel extends AbstractTableModel {
     private Vector linhas;
 
     public FuncionarioTableModel() {
-        /* DefiniÃ§Ã£o das colunas da tabela */
+        /* Definição das colunas da tabela */
         colunas = new Vector();
         colunas.add("ID");
         colunas.add("Nome");
         colunas.add("Cargo");
         colunas.add("Salario");
 
-        /* DefiniÃ§Ã£o dos dados da tabela */
+        /* Definição dos dados da tabela */
         linhas = new Vector();
     }
 

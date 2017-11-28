@@ -6,7 +6,7 @@ import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 
 public class MesaTableModel extends AbstractTableModel {
-    /* Lista para armazenar os cabeÃ§alhos da tabela */
+    /* Lista para armazenar os cabeçalhos da tabela */
 
     private Vector colunas;
 
@@ -14,13 +14,13 @@ public class MesaTableModel extends AbstractTableModel {
     private Vector linhas;
 
     public MesaTableModel() {
-        /* DefiniÃ§Ã£o das colunas da tabela */
+        /* Definição das colunas da tabela */
         colunas = new Vector();
         colunas.add("Numero");
         colunas.add("Status");
         colunas.add("Lugares");
 
-        /* DefiniÃ§Ã£o dos dados da tabela */
+        /* Definição dos dados da tabela */
         linhas = new Vector();
     }
 
@@ -70,8 +70,8 @@ public class MesaTableModel extends AbstractTableModel {
             /* Cria uma linha da tabela */
             Vector<Object> linha = new Vector();
             linha.add(mesa.getNumero());
-            linha.add(mesa.getStatus());
             linha.add(mesa.getQtdLugares());
+            linha.add("Arrumar");
             /* Adiciona a linha a tabela */
             linhas.add(linha);
         }
