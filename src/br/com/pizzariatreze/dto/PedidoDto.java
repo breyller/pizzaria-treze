@@ -12,6 +12,7 @@ public class PedidoDto {
     private ClienteDto cliente;
     private FuncionarioDto funcionario;
     private ArrayList<ProdutoDto> composicao;
+    private String composicaoString;
 
     public int getId() {
         return id;
@@ -96,4 +97,12 @@ public class PedidoDto {
             }
         }
     }    
+
+    public void setComposicao(String composicao) {
+        this.composicaoString = composicao;
+    }
+
+    public String getComposicaoString() {
+        return this.composicaoString;
+    }
 }
