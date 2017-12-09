@@ -16,9 +16,13 @@ public class FuncionarioController {
         return funcionario.listar();
     } 
 
-        public boolean save(Map mapFuncionario) {
+        public boolean save(Map mapFuncionario) throws Exception{
         Funcionario funcionario = new Funcionario();
         return funcionario.save(mapFuncionario);
     }
-    
+
+    public boolean delete(int id) {
+        Funcionario funcionario = new Funcionario();
+        return funcionario.delete(id);
+    }
 }
