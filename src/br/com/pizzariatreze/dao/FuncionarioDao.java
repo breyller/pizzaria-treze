@@ -155,8 +155,7 @@ public class FuncionarioDao {
                     
                     return true;
                 } catch (SQLException ex) {
-                    //criar log
-                    //"Erro ao atualizar funcionario: " + ex.getMessage();
+                    ex.printStackTrace();
                     return false;
                 }
             }
@@ -176,8 +175,7 @@ public class FuncionarioDao {
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            //criar log
-            //"Erro ao inserir funcionario: " + ex.getMessage();
+            ex.printStackTrace();
             return false;
         }
     }
@@ -254,6 +252,7 @@ public class FuncionarioDao {
                     this.funcionario.setSalario(rs.getDouble("salario"));
                     this.funcionario.setCpf(rs.getString("cpf"));
                     this.funcionario.setCargo(rs.getString("cargo"));                
+                    this.funcionario.setSenha(rs.getString("senha"));                
                     this.funcionarios.add(this.funcionario);
                     funcionariosObj.add((Object)this.funcionario);
                 } while (rs.next());
@@ -269,7 +268,7 @@ public class FuncionarioDao {
         String query = null;
         PreparedStatement ps = null;
         
-        query = "DELETE funcionario WHERE id = ?";
+        query = "DELETE FROM funcionario WHERE id = ?";
         try {
             ps = Conexao.getConexao().prepareStatement(query);
             ps.setInt(1, id);
@@ -277,8 +276,7 @@ public class FuncionarioDao {
 
             return true;
         } catch (SQLException ex) {
-            //criar log
-            //"Erro ao excluir funcionario: " + ex.getMessage();
+            ex.printStackTrace();
             return false;
         }
     }    
