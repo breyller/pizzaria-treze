@@ -30,6 +30,7 @@ public class ClienteDao {
                 this.cliente.setTelefone(rs.getString("telefone"));
                 this.cliente.setNome(rs.getString("nome"));
                 this.cliente.setEndereco(rs.getString("endereco"));
+                this.cliente.setCpf(rs.getString("cpf"));
                 return this.cliente;
             } else {
                 return null;
@@ -236,5 +237,22 @@ public class ClienteDao {
         }
         
         return clientesObj;
+    }
+    
+    public boolean delete(int id) {
+        String query = null;
+        PreparedStatement ps = null;
+        
+        query = "DELETE FROM cliente WHERE id = ?";
+        try {
+            ps = Conexao.getConexao().prepareStatement(query);
+            ps.setInt(1, id);
+            ps.execute();
+
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 }
