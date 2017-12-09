@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class IngredienteController {
 
-        public boolean save(Map mapIngrediente) {
+    public boolean save(Map mapIngrediente) throws Exception{
         Ingrediente ingrediente = new Ingrediente();
         return ingrediente.save(mapIngrediente);
     }
@@ -15,5 +15,15 @@ public class IngredienteController {
         Ingrediente ingrediente = new Ingrediente();
         return ingrediente.listar();
     } 
+
+    public List<Object> listar(String id) {
+        Ingrediente ingrediente = new Ingrediente();
+        return ingrediente.listar(id);
+    }
+
+    public boolean delete(int id) {
+        Ingrediente ingrediente = new Ingrediente();
+        return ingrediente.delete(id);
+    }
     
 }
