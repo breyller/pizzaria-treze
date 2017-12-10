@@ -1,5 +1,7 @@
 package br.com.pizzariatreze.util;
 
+import br.com.pizzariatreze.dao.FuncionarioDao;
+import br.com.pizzariatreze.dto.FuncionarioDto;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -30,5 +32,13 @@ public class Util {
         String senha = hexString.toString();
         
         return senha;
+    }
+    
+    public static Object getUsuarioLogado() {
+        FuncionarioDto func = new FuncionarioDto();
+        FuncionarioDao funcDao = new FuncionarioDao();
+        func = funcDao.getById(Integer.parseInt(System.getProperty("id_usuario_logado")));
+        
+        return func;
     }
 }
