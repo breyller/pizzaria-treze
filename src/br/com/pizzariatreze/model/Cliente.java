@@ -24,15 +24,41 @@ public class Cliente extends Pessoa {
         return result;
     }
     
-    public boolean save(Map cliente) {
+    public boolean save(Map cliente) throws Exception {
         ClienteDao clienteDao = new ClienteDao();
         ClienteDto clienteDto = new ClienteDto();
 
-        if(cliente.containsKey("id")) clienteDto.setId((int)cliente.get("id"));
-        if(cliente.containsKey("nome")) clienteDto.setNome((String)cliente.get("nome"));
-        if(cliente.containsKey("endereco")) clienteDto.setEndereco((String)cliente.get("endereco"));
-        if(cliente.containsKey("telefone")) clienteDto.setTelefone((String)cliente.get("telefone"));
-        if(cliente.containsKey("cpf")) clienteDto.setCpf(cliente.get("cpf").toString().replaceAll("[\\.\\-]", ""));
+        if (cliente.containsKey("id")) { 
+            clienteDto.setId(Integer.parseInt((String) cliente.get("id")));
+        }
+        
+        if (cliente.containsKey("nome")) {
+            if (cliente.get("nome").toString().trim().isEmpty()) {
+                throw new Exception("Nome deve estar preenchido.");
+            }
+            clienteDto.setNome(cliente.get("nome").toString().trim()); 
+        }
+        
+        if (cliente.containsKey("endereco")) {
+            if (cliente.get("endereco").toString().trim().isEmpty()) {
+                throw new Exception("Endereco deve estar preenchido.");
+            }
+            clienteDto.setEndereco(cliente.get("endereco").toString().trim());
+        }
+        
+        if (cliente.containsKey("telefone")) {
+            if (cliente.get("telefone").toString().trim().replace(" ", "").length() < 13) {
+                throw new Exception("Telefone deve estar corretamente preenchido.");
+            }
+            clienteDto.setTelefone(cliente.get("telefone").toString().trim());
+        }
+        
+        if(cliente.containsKey("cpf")) {
+            if (cliente.get("cpf").toString().replaceAll("[\\.\\-]", "").replace(" ", "").length() < 11) {
+                throw new Exception("CPF deve estar preenchido.");
+            }
+            clienteDto.setCpf(cliente.get("cpf").toString().replaceAll("[\\.\\-]", ""));
+        }
  
         return clienteDao.save(clienteDto);
     }    
@@ -63,5 +89,10 @@ public class Cliente extends Pessoa {
             lista = ddao.search(cliente);
             
             return lista;    
+    }
+
+    public boolean delete(int id) {
+        ClienteDao cdao = new ClienteDao();
+        return cdao.delete(id);
     }
 }
