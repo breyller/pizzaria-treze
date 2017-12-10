@@ -166,8 +166,13 @@ public class CadastroProduto extends javax.swing.JFrame {
         produto.put("descricao", txtDescricao.getText());
         produto.put("preco", txtPreco.getText());
         
-        String resposta = produtoCtrl.save(produto) ? "Produto cadastrado com sucesso." : "Erro ao cadastrar produto.";
-        
+        String resposta = "";
+        try {
+            resposta = produtoCtrl.save(produto) ? "Produto cadastrado com sucesso." : "Erro ao cadastrar produto.";
+        } catch (Exception e) {
+            resposta = e.getMessage();
+        }
+                
         JOptionPane.showMessageDialog(null, resposta);
     }//GEN-LAST:event_jButton1ActionPerformed
 
