@@ -1,14 +1,56 @@
 package br.com.pizzariatreze.view;
 
+import br.com.pizzariatreze.controller.ClienteController;
+import br.com.pizzariatreze.controller.PedidoController;
+import br.com.pizzariatreze.controller.ProdutoController;
+import br.com.pizzariatreze.tablemodel.PedidoTableModel;
+import br.com.pizzariatreze.util.TableCellListener;
+import br.com.pizzariatreze.util.Util;
 import br.com.pizzariatreze.view.cadastro.CadastroPizza;
+import java.awt.event.ActionEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 public class TelaPedido extends javax.swing.JFrame {
 
+    private String composicao;
+    private Double preco;
+    
+    Action actionAlteraValor = new AbstractAction(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            TableCellListener tcl = (TableCellListener)e.getSource();
+            int linha = tcl.getRow();
+            int coluna = tcl.getColumn();
+            
+            Integer qtd = (Integer) tcl.getNewValue();
+            Double valor = (Double)((PedidoTableModel)jTablePedido.getModel()).getValueAt(linha, (coluna + 1));
+            
+            valor = valor * qtd;
+            
+            ((PedidoTableModel)jTablePedido.getModel()).setValueAt(valor, linha, (coluna + 1));
+        }
+    };
+    
     /**
      * Creates new form TelaPedido
      */
     public TelaPedido() {
         initComponents();
+        
+        this.composicao = "";
+        this.preco = 0D;
+        
+        popularPizza();
+        popularClientes();
     }
 
     /**
@@ -20,70 +62,37 @@ public class TelaPedido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<String>();
-        jFrame1 = new javax.swing.JFrame();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<String>();
+        comboPizzas = new javax.swing.JComboBox<String>();
         jButton5 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel7 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jComboBox4 = new javax.swing.JComboBox<String>();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jTablePedido = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jLabelVoltar = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
-
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
+        jLabel1 = new javax.swing.JLabel();
+        comboClientes = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel5.setText("Pedido");
 
-        jLabel6.setText("Pizza:");
+        jLabel6.setText("Produto:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pizza de Mussarela", "Pizza de Calebresa", "Pizza de Frago ", "Pizza de Brócolis" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        comboPizzas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                comboPizzasActionPerformed(evt);
             }
         });
 
@@ -94,31 +103,16 @@ public class TelaPedido extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("Bebida:");
-
-        jButton6.setText("Adicionar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Coca 350", "Coca 2L", "Guarana 350", "Guarana 2L" }));
-
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Produto", "Subtotal"
-            }
-        ));
-        jScrollPane4.setViewportView(jTable3);
+        jTablePedido.setModel(new PedidoTableModel());
+        TableCellListener tcl = new TableCellListener(jTablePedido, actionAlteraValor);
+        jScrollPane4.setViewportView(jTablePedido);
 
         jButton2.setText("Confirmar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabelVoltar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelVoltar.setText("Voltar");
@@ -135,29 +129,12 @@ public class TelaPedido extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Cliente:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel6)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7)
-                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton5)
-                        .addGap(64, 64, 64)
-                        .addComponent(jButton3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton2)
@@ -165,33 +142,48 @@ public class TelaPedido extends javax.swing.JFrame {
                 .addComponent(jLabelVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(comboPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5)
+                        .addGap(64, 64, 64)
+                        .addComponent(jButton3)
+                        .addGap(0, 287, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(comboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel6))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5)
                     .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6))
-                .addGap(22, 22, 22)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2)))
@@ -208,10 +200,7 @@ public class TelaPedido extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -233,31 +222,87 @@ public class TelaPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelVoltarMouseClicked
-        // TODO add your handling code here:
         TelaInicial ti = new TelaInicial();
         ti.setVisible(true);
         dispose();
     }//GEN-LAST:event_jLabelVoltarMouseClicked
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        Object produto = comboPizzas.getSelectedItem();
+        adicionarProduto(produto);
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    public void adicionarProduto(Object produto){
+        ((PedidoTableModel)jTablePedido.getModel()).adicionarLinha(produto);
+    }
+    
+    private void comboPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPizzasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_comboPizzasActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-                // TODO add your handling code here:
-        CadastroPizza tc = new CadastroPizza();
+        CadastroPizza tc = new CadastroPizza(this);
         tc.setVisible(true);
         //dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        PedidoController pedidoCtrl = new PedidoController();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        
+        popularComposicao();
+
+        Map<String, Object> pedido = new HashMap<>();
+        pedido.put("cliente", comboClientes.getSelectedItem());
+        pedido.put("composicao", this.composicao);
+        pedido.put("data", dateFormat.format(date));
+        pedido.put("funcionario", Util.getUsuarioLogado());
+        pedido.put("preco", this.preco);
+        pedido.put("status", 1);
+        pedido.put("tipo", 1);
+        
+        String resposta = "";
+        try {
+            resposta = pedidoCtrl.save(pedido) ? "Pedido cadastrado com sucesso." : "Erro ao cadastrar pedido.";
+        } catch (Exception e) {
+            resposta = e.getMessage();
+        }
+        
+        JOptionPane.showMessageDialog(null, resposta);
+        
+        this.preco = 0D;
+        this.composicao = "";
+        jTablePedido.setModel(new PedidoTableModel());
+    }//GEN-LAST:event_jButton2ActionPerformed
+    
+    public void popularPizza(){
+        ProdutoController produtosCtrl = new ProdutoController();
+        List produtos = produtosCtrl.listarProdutos();
+        popularCombo(comboPizzas, produtos);
+    }
+    
+     
+    public void popularClientes(){
+        ClienteController pedidosCtrl = new ClienteController();
+        List pedidos = pedidosCtrl.listar();
+        
+        popularCombo(comboClientes, pedidos);
+    }
+    
+    public void popularCombo(JComboBox combo, List valores){
+        if(!valores.isEmpty()){
+            combo.removeAllItems();
+
+            for(Object v : valores){
+               combo.addItem(v);
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -294,25 +339,34 @@ public class TelaPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox comboClientes;
+    private javax.swing.JComboBox<String> comboPizzas;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JFrame jFrame1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelVoltar;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTablePedido;
     // End of variables declaration//GEN-END:variables
+
+    private void popularComposicao() {
+        for(int i = 0; i < jTablePedido.getModel().getRowCount(); i++){
+            Integer id = (Integer) jTablePedido.getModel().getValueAt(i, 0);
+            Integer qtd = (Integer) jTablePedido.getModel().getValueAt(i, 2);
+            Double preco = (Double) jTablePedido.getModel().getValueAt(i, 3);
+            
+            this.composicao += id + "|" + qtd;
+            this.preco += preco;
+            
+            if(jTablePedido.getModel().getRowCount() > (i + 1)){
+                this.composicao += ",";
+            }
+        }
+    }
 }
