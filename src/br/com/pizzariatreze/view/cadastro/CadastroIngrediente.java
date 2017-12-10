@@ -190,7 +190,12 @@ public class CadastroIngrediente extends javax.swing.JFrame {
         ingrediente.put("valor", txtValor.getText());
         ingrediente.put("quantidade", txtQuantidade.getText());
 
-        String resposta = ingredienteCtrl.save(ingrediente) ? "Ingrediente cadastrado com sucesso." : "Erro ao cadastrar ingrediente.";
+        String resposta = "";
+        try {
+            resposta = ingredienteCtrl.save(ingrediente) ? "Ingrediente cadastrado com sucesso." : "Erro ao cadastrar ingrediente.";
+        } catch (Exception e) {
+            resposta = e.getMessage();
+        }
         
         JOptionPane.showMessageDialog(null, resposta);
     }//GEN-LAST:event_jButton1ActionPerformed
