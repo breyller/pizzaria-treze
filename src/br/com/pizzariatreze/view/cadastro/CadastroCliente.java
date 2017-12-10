@@ -90,6 +90,12 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         });
 
+        txtTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefoneActionPerformed(evt);
+            }
+        });
+
         txtEndereco.setColumns(20);
         txtEndereco.setRows(5);
         jScrollPane1.setViewportView(txtEndereco);
@@ -201,10 +207,19 @@ public class CadastroCliente extends javax.swing.JFrame {
         cliente.put("endereco", txtEndereco.getText());
         cliente.put("cpf", txtCPF.getText());
         
-        String resposta = clienteCtrl.save(cliente) ? "Cliente cadastrado com sucesso." : "Erro ao cadastrar cliente.";
+        String resposta = "";
+        try {
+            resposta = clienteCtrl.save(cliente) ? "Cliente cadastrado com sucesso." : "Erro ao cadastrar cliente.";
+        } catch (Exception e) {
+            resposta = e.getMessage();
+        }
         
         JOptionPane.showMessageDialog(null, resposta);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefoneActionPerformed
 
     /**
      * @param args the command line arguments
