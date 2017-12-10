@@ -33,18 +33,66 @@ public class Funcionario extends Pessoa {
         return result;
     }
     
-    public boolean save(Map funcionario) {
+    public boolean save(Map funcionario) throws Exception{
         FuncionarioDao funcionarioDao = new FuncionarioDao();
         FuncionarioDto funcionarioDto = new FuncionarioDto();
 
-        if(funcionario.containsKey("id")) funcionarioDto.setId((int)funcionario.get("id"));
-        if(funcionario.containsKey("nome")) funcionarioDto.setNome((String)funcionario.get("nome"));
-        if(funcionario.containsKey("endereco")) funcionarioDto.setEndereco((String)funcionario.get("endereco"));
-        if(funcionario.containsKey("telefone")) funcionarioDto.setTelefone((String)funcionario.get("telefone"));
-        if(funcionario.containsKey("cpf")) funcionarioDto.setCpf(funcionario.get("cpf").toString().replaceAll("[\\.\\-]", ""));
-        if(funcionario.containsKey("salario")) funcionarioDto.setSalario((double)funcionario.get("salario"));
-        if(funcionario.containsKey("cargo")) funcionarioDto.setCargo((String)funcionario.get("cargo"));
-        if(funcionario.containsKey("senha")) funcionarioDto.setCargo((String)funcionario.get("senha"));
+        if(funcionario.containsKey("id")) {
+            funcionarioDto.setId((int)funcionario.get("id"));
+        }
+        
+        if(funcionario.containsKey("nome")) {
+            if (funcionario.get("nome").toString().trim().isEmpty()) {
+                throw new Exception("Nome deve estar preenchido.");
+            }
+            funcionarioDto.setNome(funcionario.get("nome").toString().trim());
+        }
+        
+        if(funcionario.containsKey("endereco") && !funcionario.get("endereco").toString().trim().isEmpty()) {
+            funcionarioDto.setEndereco(funcionario.get("endereco").toString().trim());
+        }
+        
+        if(funcionario.containsKey("telefone") && funcionario.get("telefone").toString().trim().replace(" ", "").length() >= 13) {
+            funcionarioDto.setTelefone(funcionario.get("telefone").toString().trim());
+        }
+        
+        if(funcionario.containsKey("cpf")) {
+            if (funcionario.get("cpf").toString().replaceAll("[\\.\\-]", "").replace(" ", "").length() < 11) {
+                throw new Exception("CPF deve estar preenchido.");
+            }
+            funcionarioDto.setCpf(funcionario.get("cpf").toString().replaceAll("[\\.\\-]", ""));
+        }
+        
+        if(funcionario.containsKey("salario")) {
+            if (funcionario.get("salario").toString().trim().isEmpty()) {
+                throw new Exception("Salario deve estar preenchido.");
+            }
+            
+            double salario;
+
+            try {
+                salario = Double.parseDouble(funcionario.get("salario").toString().trim());
+            } catch (Exception e) {
+                throw new Exception("Salario deve ser um valor numérico.");
+            }
+            
+            funcionarioDto.setSalario(salario);
+        }
+        
+        if(funcionario.containsKey("cargo")) {
+            if (funcionario.get("cargo").toString().trim().isEmpty()) {
+                throw new Exception("Cargo deve estar preenchido.");
+            }
+            funcionarioDto.setCargo(funcionario.get("cargo").toString().trim());
+        }
+        
+        if(funcionario.containsKey("senha")) {
+            if (funcionario.get("senha").toString().trim().isEmpty()) {
+                throw new Exception("Senha deve estar preenchido.");
+            }
+            funcionarioDto.setSenha(funcionario.get("senha").toString().trim());
+        }
+        
         return funcionarioDao.save(funcionarioDto);
     } 
     
@@ -56,7 +104,7 @@ public class Funcionario extends Pessoa {
     public boolean login(String usuario, char[] senha) {
         
         FuncionarioDto funcionario = new FuncionarioDto();
-        
+        List <Object> lista;
         char[] chars = senha;
         String password = String.valueOf(chars);
         String cpfLimpo = usuario.replaceAll("[\\.\\-]", "");
@@ -65,9 +113,17 @@ public class Funcionario extends Pessoa {
         funcionario.setSenha(senhaCript);
         
         FuncionarioDao func = new FuncionarioDao();
-        
-        if(!func.search(funcionario).isEmpty())
-            return true;
+        lista = func.search(funcionario);
+        if(!lista.isEmpty()) {
+            for (Object f : lista) {
+                FuncionarioDto funcionarioBD = new FuncionarioDto();
+                funcionarioBD = (FuncionarioDto) f;
+                if(funcionarioBD.getCpf().replaceAll("[\\.\\-]", "").equals(cpfLimpo) && funcionarioBD.getSenha().equals(senhaCript)) {
+                    System.setProperty("id_usuario_logado", String.valueOf(funcionarioBD.getId()));
+                    return true;
+                }
+            }
+        }
         
         return false;
     }
@@ -101,4 +157,8 @@ public class Funcionario extends Pessoa {
             
     }
 
+    public boolean delete(int id) {
+        FuncionarioDao fdao = new FuncionarioDao();
+        return fdao.delete(id);
+    }
 }
