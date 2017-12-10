@@ -175,8 +175,13 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         funcionario.put("cargo", txtCargo.getText());
         funcionario.put("salario", txtSalario.getText());
         funcionario.put("senha", Util.criptografar(pass));
-        
-        String resposta = funcionarioCtrl.save(funcionario) ? "Funcionario cadastrado com sucesso." : "Erro ao cadastrar funcionario.";
+
+        String resposta = "";
+        try {
+            resposta = funcionarioCtrl.save(funcionario) ? "Funcionario cadastrado com sucesso." : "Erro ao cadastrar funcionario.";
+        } catch (Exception e) {
+            resposta = e.getMessage();
+        }
         
         JOptionPane.showMessageDialog(null, resposta);
     }//GEN-LAST:event_jButton1ActionPerformed
