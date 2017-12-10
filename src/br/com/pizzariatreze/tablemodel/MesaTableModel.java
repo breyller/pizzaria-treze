@@ -16,8 +16,8 @@ public class MesaTableModel extends AbstractTableModel {
     public MesaTableModel() {
         /* Definição das colunas da tabela */
         colunas = new Vector();
+        colunas.add("ID");
         colunas.add("Numero");
-        colunas.add("Status");
         colunas.add("Lugares");
 
         /* Definição dos dados da tabela */
@@ -69,9 +69,10 @@ public class MesaTableModel extends AbstractTableModel {
             mesa = (MesaDto) d;
             /* Cria uma linha da tabela */
             Vector<Object> linha = new Vector();
+            linha.add(mesa.getId());
             linha.add(mesa.getNumero());
             linha.add(mesa.getQtdLugares());
-            linha.add("Arrumar");
+            
             /* Adiciona a linha a tabela */
             linhas.add(linha);
         }
