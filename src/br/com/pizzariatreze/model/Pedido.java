@@ -4,6 +4,7 @@ import br.com.pizzariatreze.dao.PedidoDao;
 import br.com.pizzariatreze.dto.ClienteDto;
 import br.com.pizzariatreze.dto.FuncionarioDto;
 import br.com.pizzariatreze.dto.PedidoDto;
+import java.util.List;
 import java.util.Map;
 
 public class Pedido {
@@ -33,7 +34,7 @@ public class Pedido {
         PedidoDto pedidoDto = new PedidoDto();
 
         if (pedido.containsKey("id")) { 
-            pedidoDto.setId((int)pedido.get("id"));
+            pedidoDto.setId(Integer.parseInt(String.valueOf(pedido.get("id"))));
         }
         
         if (pedido.containsKey("cliente")) {
@@ -67,7 +68,7 @@ public class Pedido {
         
         if (pedido.containsKey("preco")) {
             if (pedido.get("preco").toString().trim().isEmpty()) {
-                throw new Exception("Preço deve estar corretamente preenchido.");
+                throw new Exception("PreÃ§o deve estar corretamente preenchido.");
             }
             pedidoDto.setPreco((Double)pedido.get("preco"));
         }
@@ -76,7 +77,7 @@ public class Pedido {
             if (pedido.get("status").toString().trim().isEmpty()) {
                 throw new Exception("Status deve estar corretamente preenchido.");
             }
-            pedidoDto.setStatus((Integer)pedido.get("status"));
+            pedidoDto.setStatus(Integer.parseInt(String.valueOf(pedido.get("status"))));
         }
                 
         if (pedido.containsKey("tipo")) {
@@ -88,4 +89,28 @@ public class Pedido {
         
         return pedidoDao.save(pedidoDto);
     }    
+
+    public List<Object> listar() {
+        PedidoDto pedido = new PedidoDto();
+        
+        PedidoDao pdao = new PedidoDao();
+        List<Object> lista;
+        lista = pdao.search(pedido);
+        
+        return lista;    
+    }
+
+    public List<Object> listar(int id) {
+        PedidoDto pedido = new PedidoDto();
+        
+        if(id > 0) {
+            pedido.setId(id);
+        }
+        
+        PedidoDao pdao = new PedidoDao();
+        List<Object> lista;
+        lista = pdao.search(pedido);
+        
+        return lista;
+    }
 }

@@ -12,7 +12,7 @@ public class Produto {
         ProdutoDto produtoDto = new ProdutoDto();
 
         if(produto.containsKey("id")) {
-            produtoDto.setId((int)produto.get("id"));
+            produtoDto.setId(Integer.parseInt((String) produto.get("id")));
         }
         
         if(produto.containsKey("nome")) {
@@ -39,7 +39,7 @@ public class Produto {
             try {
                 preco = Double.parseDouble(produto.get("preco").toString().trim());
             } catch (Exception e) {
-                throw new Exception("Preco deve ser um valor numérico.");
+                throw new Exception("Preco deve ser um valor numÃ©rico.");
             }
             
             produtoDto.setPreco(preco);
@@ -59,7 +59,7 @@ public class Produto {
             produtoDto.setComposicao(composicao);
             
             if(produtoDao.save(produtoDto))
-                savePizza(nome, composicao);
+                return savePizza(nome, composicao);
         }
         
         return produtoDao.getById(id);
@@ -80,5 +80,4 @@ public class Produto {
         
         return produtoDao.search(produtoDto);
     }
-
 }

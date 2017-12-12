@@ -38,7 +38,7 @@ public class Funcionario extends Pessoa {
         FuncionarioDto funcionarioDto = new FuncionarioDto();
 
         if(funcionario.containsKey("id")) {
-            funcionarioDto.setId((int)funcionario.get("id"));
+            funcionarioDto.setId(Integer.parseInt((String) funcionario.get("id")));
         }
         
         if(funcionario.containsKey("nome")) {
@@ -73,7 +73,7 @@ public class Funcionario extends Pessoa {
             try {
                 salario = Double.parseDouble(funcionario.get("salario").toString().trim());
             } catch (Exception e) {
-                throw new Exception("Salario deve ser um valor numérico.");
+                throw new Exception("Salario deve ser um valor numÃ©rico.");
             }
             
             funcionarioDto.setSalario(salario);
@@ -129,13 +129,13 @@ public class Funcionario extends Pessoa {
     }
 
     public List<Object> listar(int id) {
-        /* Criação do modelo */
+        /* CriaÃ§Ã£o do modelo */
         FuncionarioDto funcionario = new FuncionarioDto();
 
         if(id > 0)
             funcionario.setId(id);
 
-        /* Criação do DAO */
+        /* CriaÃ§Ã£o do DAO */
         FuncionarioDao ddao = new FuncionarioDao();
         List<Object> lista;
         lista = ddao.search(funcionario);
@@ -145,10 +145,10 @@ public class Funcionario extends Pessoa {
     }
     
     public List<Object> listar() {
-        /* Criação do modelo */
+        /* CriaÃ§Ã£o do modelo */
         FuncionarioDto funcionario = new FuncionarioDto();
 
-        /* Criação do DAO */
+        /* CriaÃ§Ã£o do DAO */
         FuncionarioDao ddao = new FuncionarioDao();
         List<Object> lista;
         lista = ddao.search(funcionario);

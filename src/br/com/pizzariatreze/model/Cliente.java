@@ -64,13 +64,13 @@ public class Cliente extends Pessoa {
     }    
 
     public List<Object> listar(String telefone) {
-        /* Criação do modelo */
+        /* CriaÃ§Ã£o do modelo */
             ClienteDto cliente = new ClienteDto();
             
             if(telefone.length() > 0)
                 cliente.setTelefone(telefone);
 
-            /* Criação do DAO */
+            /* CriaÃ§Ã£o do DAO */
             ClienteDao ddao = new ClienteDao();
             List<Object> lista;
             lista = ddao.search(cliente);
@@ -80,10 +80,10 @@ public class Cliente extends Pessoa {
     }
     
     public List<Object> listar() {
-        /* Criação do modelo */
+        /* CriaÃ§Ã£o do modelo */
             ClienteDto cliente = new ClienteDto();
  
-            /* Criação do DAO */
+            /* CriaÃ§Ã£o do DAO */
             ClienteDao ddao = new ClienteDao();
             List<Object> lista;
             lista = ddao.search(cliente);

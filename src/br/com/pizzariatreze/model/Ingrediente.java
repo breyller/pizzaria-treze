@@ -12,7 +12,7 @@ public class Ingrediente {
         IngredienteDto ingredienteDto = new IngredienteDto();
 
         if(ingrediente.containsKey("id")) {
-            ingredienteDto.setId((int)ingrediente.get("id"));
+            ingredienteDto.setId(Integer.parseInt((String) ingrediente.get("id")));
         }
         
         if(ingrediente.containsKey("nome")) {
@@ -39,7 +39,7 @@ public class Ingrediente {
             try {
                 valor = Double.parseDouble(ingrediente.get("valor").toString().trim());
             } catch (Exception e) {
-                throw new Exception("Valor deve ser numérico.");
+                throw new Exception("Valor deve ser numÃ©rico.");
             }
                         
             ingredienteDto.setValor(valor);
@@ -55,7 +55,7 @@ public class Ingrediente {
             try {
                 qtd = Integer.parseInt(ingrediente.get("quantidade").toString().trim());
             } catch (Exception e) {
-                throw new Exception("Valor deve ser numérico.");
+                throw new Exception("Valor deve ser numÃ©rico.");
             }
             
             if(qtd <= 0) {
@@ -69,10 +69,10 @@ public class Ingrediente {
     } 
     
     public List<Object> listar() {
-        /* Criação do modelo */
+        /* CriaÃ§Ã£o do modelo */
             IngredienteDto ingrediente = new IngredienteDto();
  
-            /* Criação do DAO */
+            /* CriaÃ§Ã£o do DAO */
             IngredienteDao ddao = new IngredienteDao();
             List<Object> lista;
             lista = ddao.search(ingrediente);
@@ -81,13 +81,13 @@ public class Ingrediente {
     }
     
         public List<Object> listar(String id) {
-        /* Criação do modelo */
+        /* CriaÃ§Ã£o do modelo */
             IngredienteDto ingrediente = new IngredienteDto();
             
             if(id.length() > 0)
                 ingrediente.setId(Integer.parseInt(id));
 
-            /* Criação do DAO */
+            /* CriaÃ§Ã£o do DAO */
             IngredienteDao ddao = new IngredienteDao();
             List<Object> lista;
             lista = ddao.search(ingrediente);
