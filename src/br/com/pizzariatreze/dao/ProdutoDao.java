@@ -38,10 +38,12 @@ public class ProdutoDao {
                 this.produto.setPreco(rs.getDouble("preco"));
                 this.produto.setDescricao(rs.getString("descricao"));
                 ingredientes = rs.getString("composicao");
-                ingredientesSplit = ingredientes.split(",");
-                
-                for (int i = 0; i < ingredientesSplit.length; i++) {
-                    this.produto.setComposicao(ingredienteDao.getById(Integer.parseInt(ingredientesSplit[i])));
+                if(!ingredientes.equals("") && !ingredientes.equals(null)) {
+                    ingredientesSplit = ingredientes.split(",");
+
+                    for (int i = 0; i < ingredientesSplit.length; i++) {
+                        this.produto.setComposicao(ingredienteDao.getById(Integer.parseInt(ingredientesSplit[i])));
+                    }
                 }
                 return this.produto;
             } else {
@@ -237,20 +239,31 @@ public class ProdutoDao {
         try {
             query = "INSERT INTO produto(nome, preco, descricao, composicao) VALUES (?,?,?,?)";
             ps = Conexao.getConexao().prepareStatement(query);
-            ps.setString(1, produto.getNome());
-            ps.setDouble(2, produto.getPreco());
-            ps.setString(3, produto.getDescricao());
-            
+            double preco = 0;
+            IngredienteDao idao = new IngredienteDao();
             ingredientes = "";
+            
             if(produto.getComposicao().size() > 0) {
                 ingredientes = String.valueOf(produto.getComposicao().get(0).getId());
+                preco = produto.getComposicao().get(0).getValor();
                 for(int i = 1; i < produto.getComposicao().size(); i++) {
+                    preco = preco + produto.getComposicao().get(i).getValor();
                     ingredientes = ingredientes + "," + String.valueOf(produto.getComposicao().get(i).getId());
                 }
             }else if(!produto.getComposicaoString().equals("")){
                 ingredientes = produto.getComposicaoString();
+                String[] ingredientesSplit = ingredientes.split(",");
+                for (int i = 0; i < ingredientesSplit.length; i++) {
+                    preco = preco + idao.getById(Integer.parseInt(ingredientesSplit[i])).getValor();
+                }
             }
             
+            if(produto.getPreco() < preco)
+                produto.setPreco(preco);
+            
+            ps.setString(1, produto.getNome());
+            ps.setDouble(2, produto.getPreco());
+            ps.setString(3, produto.getDescricao());
             ps.setString(4, ingredientes);
             
             ps.executeUpdate();

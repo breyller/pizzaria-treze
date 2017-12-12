@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MesaDao {
 
-    private ArrayList<MesaDto> mesas = null;
+    private ArrayList<MesaDto> mesas = new ArrayList<>();
     private MesaDto mesa = null;
     private Connection con = null;
     
@@ -33,8 +33,10 @@ public class MesaDao {
                 this.mesa.setQtdLugares(rs.getInt("qtd_lugares"));
                 reservas = rs.getString("reservas");
                 reservasSplit = reservas.split(",");
-                for (int i = 0; i < reservasSplit.length; i++) {
-                    this.mesa.setCodReserva(Integer.parseInt(reservasSplit[i]));
+                if(!reservas.equals(null) && reservas.length() > 0) {
+                    for (int i = 0; i < reservasSplit.length; i++) {
+                        this.mesa.setCodReserva(Integer.parseInt(reservasSplit[i]));
+                    }
                 }
                 return this.mesa;
             } else {
@@ -192,8 +194,7 @@ public class MesaDao {
         }
     }
     
-    public String save(MesaDto mesa) {
-        String result = "Erro ao inserir/atualizar o mesa";
+    public boolean save(MesaDto mesa) {
         String query = null;
         PreparedStatement ps = null;
         String reservas = null;
@@ -201,46 +202,44 @@ public class MesaDao {
         if(mesa.getId() != 0) {
             MesaDto mesaBD = this.getById(mesa.getId());
             if(mesaBD != null) {
-                query = "UPDATE mesa SET numero = ?, qtd_lugares = ?, reservas = ? WHERE id = ?";
+                query = "UPDATE mesa SET numero = ?, qtd_lugares = ?, status = ? WHERE id = ?";
                 try {
                     ps = Conexao.getConexao().prepareStatement(query);
                     ps.setInt(1, mesa.getNumero());
                     ps.setInt(2, mesa.getQtdLugares());
-                    reservas = String.valueOf(mesa.getCodReserva().get(0));
-                    for(int i = 1; i < mesa.getCodReserva().size(); i++) {
-                        reservas = reservas + "," + String.valueOf(mesa.getCodReserva().get(i));
-                    }
-                    ps.setString(3, reservas);
+                    ps.setInt(3, mesa.getStatus());
                     ps.setInt(4, mesa.getId());
                     ps.executeUpdate();
                     
-                    return "Mesa atualizada com sucesso.";
+                    return true;
                 } catch (SQLException ex) {
-                    return "Erro ao atualizar mesa: " + ex.getMessage();
+                    ex.printStackTrace();
+                    return false;
                 }
             }
         }
         
         try {
-            query = mesa.getId() != 0 ? "INSERT INTO mesa(numero, qtd_lugares, reservas, id) VALUES (?,?,?,?)" : "INSERT INTO mesa(numero, qtd_lugares, reservas) VALUES (?,?,?)";
+            query = "INSERT INTO mesa(numero, qtd_lugares, reservas, status) VALUES (?,?,?,?)";
             ps = Conexao.getConexao().prepareStatement(query);
             ps.setInt(1, mesa.getNumero());
             ps.setInt(2, mesa.getQtdLugares());
-            reservas = String.valueOf(mesa.getCodReserva().get(0));
-            for(int i = 1; i < mesa.getCodReserva().size(); i++) {
-                reservas = reservas + "," + String.valueOf(mesa.getCodReserva().get(i));
+            reservas = "";
+            if(mesa.getCodReserva().size() > 0) {
+                reservas = String.valueOf(mesa.getCodReserva().get(0));
+                for(int i = 1; i < mesa.getCodReserva().size(); i++) {
+                    reservas = reservas + "," + String.valueOf(mesa.getCodReserva().get(i));
+                }
             }
             ps.setString(3, reservas);
-            if(mesa.getId() != 0) {
-                ps.setInt(4, mesa.getId());
-            }
+            ps.setInt(4, mesa.getStatus());
             ps.executeUpdate();
-            result = "Mesa criada com sucesso.";
+            
+            return true;
         } catch (SQLException ex) {
-            return "Erro ao inserir mesa: " + ex.getMessage();
+            ex.printStackTrace();
+            return false;
         }
-        
-        return result;
     }
     
     public List<Object> search(MesaDto mesa) {
@@ -271,6 +270,11 @@ public class MesaDao {
                 if(alt.contains("qtd_lugares")){
                     sqlWhere += " AND qtd_lugares = ? ";
                     parametros.add(mesa.getQtdLugares());
+                }
+
+                if(alt.contains("status")){
+                    sqlWhere += " AND status = ? ";
+                    parametros.add(mesa.getStatus());
                 }
 
                 if(alt.contains("reservas")){
@@ -338,6 +342,46 @@ public class MesaDao {
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
+        }
+    }
+
+    public List<Object> listarMesasLivres() {
+        
+        List<Object> mesasObj = new ArrayList<>();
+        this.mesas.clear();
+        this.mesa = null;
+        PreparedStatement ps = null;
+        
+        try {
+            con = Conexao.getConexao();
+            ps = con.prepareStatement("SELECT * FROM pizzaria.mesa where status = 0");
+            ResultSet rs = ps.executeQuery();
+            
+            if(!rs.next()) {
+                return null;
+            }
+            
+            do {
+                this.mesa = new MesaDto();
+                this.mesa.setId(rs.getInt("id"));
+                this.mesa.setNumero(rs.getInt("numero"));
+                this.mesa.setQtdLugares(rs.getInt("qtd_lugares"));
+                this.mesas.add(this.mesa);
+                mesasObj.add(this.mesa);
+            } while (rs.next());
+            
+            return mesasObj;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

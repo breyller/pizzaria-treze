@@ -33,6 +33,7 @@ public class FuncionarioDao {
                 this.funcionario.setSalario(rs.getDouble("salario"));
                 this.funcionario.setCpf(rs.getString("cpf"));
                 this.funcionario.setCargo(rs.getString("cargo"));
+                this.funcionario.setSenha(rs.getString("senha"));
                 return this.funcionario;
             } else {
                 return null;
@@ -137,10 +138,15 @@ public class FuncionarioDao {
         String query = null;
         PreparedStatement ps = null;
         
-        if(funcionario.getId() != 0) {
+        if (funcionario.getId() != 0) {
             FuncionarioDto funcionarioBD = this.getById(funcionario.getId());
-            if(funcionarioBD != null) {
-                query = "UPDATE funcionario SET nome = ?, telefone = ?, cpf = ?, endereco = ?, cargo = ?, salario = ?, senha = ? WHERE id = ?";
+            if (funcionarioBD != null) {
+                query = "UPDATE funcionario SET nome = ?, telefone = ?, cpf = ?, endereco = ?, cargo = ?, salario = ?";
+                if (funcionario.getSenha() != null) {
+                    query = query + ", senha = ?";
+                }
+                query = query + " WHERE id = ?";
+                
                 try {
                     ps = Conexao.getConexao().prepareStatement(query);
                     ps.setString(1, funcionario.getNome());
@@ -149,8 +155,13 @@ public class FuncionarioDao {
                     ps.setString(4, funcionario.getEndereco());
                     ps.setString(5, funcionario.getCargo());
                     ps.setDouble(6, funcionario.getSalario());
-                    ps.setString(7, funcionario.getSenha());
-                    ps.setInt(8, funcionario.getId());
+                    if (funcionario.getSenha() != null) {
+                        ps.setString(7, funcionario.getSenha());
+                        ps.setInt(8, funcionario.getId());
+                    } else {
+                        ps.setInt(7, funcionario.getId());
+                    }
+
                     ps.executeUpdate();
                     
                     return true;

@@ -146,11 +146,11 @@ public class ReservaDao {
         }
     }
     
-    public String save(ReservaDto reserva) {
+    public boolean save(ReservaDto reserva) {
         String result = "Erro ao inserir/atualizar a reserva";
         String query = null;
         PreparedStatement ps = null;
-        String mesas = null;
+        String mesas = "";
         
         if(reserva.getId() != 0) {
             ReservaDto reservaBD = this.getById(reserva.getId());
@@ -169,9 +169,9 @@ public class ReservaDao {
                     ps.setInt(5, reserva.getId());
                     ps.executeUpdate();
                     
-                    return "Reserva atualizada com sucesso.";
+                    return true;
                 } catch (SQLException ex) {
-                    return "Erro ao atualizar reserva: " + ex.getMessage();
+                    return false;
                 }
             }
         }
@@ -182,10 +182,16 @@ public class ReservaDao {
             ps.setString(1, reserva.getNome());
             ps.setInt(2, reserva.getStatus());
             ps.setString(3, reserva.getData());
-            mesas = String.valueOf(reserva.getComposicao().get(0).getId());
-            for(int i = 1; i < reserva.getComposicao().size(); i++) {
-                mesas = mesas + "," + String.valueOf(reserva.getComposicao().get(i).getId());
+            
+            if(reserva.getComposicao() != null) {
+                mesas = String.valueOf(reserva.getComposicao().get(0).getId());
+                for(int i = 1; i < reserva.getComposicao().size(); i++) {
+                    mesas = mesas + "," + String.valueOf(reserva.getComposicao().get(i).getId());
+                }
+            }else if(!reserva.getComposicaoString().equals("")){
+                mesas = reserva.getComposicaoString();
             }
+            
             ps.setString(4, mesas);
             if(reserva.getId() != 0) {
                 ps.setInt(5, reserva.getId());
@@ -193,9 +199,9 @@ public class ReservaDao {
             ps.executeUpdate();
             result = "Reserva criada com sucesso.";
         } catch (SQLException ex) {
-            return "Erro ao inserir reserva: " + ex.getMessage();
+            return false;
         }
         
-        return result;
+        return true;
     }
 }
