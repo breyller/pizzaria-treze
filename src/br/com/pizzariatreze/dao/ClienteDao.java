@@ -248,8 +248,12 @@ public class ClienteDao {
             ps = Conexao.getConexao().prepareStatement(query);
             ps.setInt(1, id);
             ps.execute();
-
-            return true;
+            
+            if(ps.getUpdateCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;

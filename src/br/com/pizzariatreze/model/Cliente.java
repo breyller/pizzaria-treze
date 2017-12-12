@@ -2,20 +2,11 @@ package br.com.pizzariatreze.model;
 
 import br.com.pizzariatreze.dao.ClienteDao;
 import br.com.pizzariatreze.dto.ClienteDto;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Cliente extends Pessoa {
     
-    public Object getByNome(String nome) {
-        ArrayList<ClienteDto> result = null;
-        ClienteDao clienteDao = new ClienteDao();
-        
-        result = clienteDao.getByNome(nome);
-        return result;
-    }
-
     public Object getById(int id) {
         ClienteDto result = null;
         ClienteDao clienteDao = new ClienteDao();
