@@ -102,17 +102,20 @@ public class PedidoTableModel extends AbstractTableModel {
     }
     
     public void adicionarLinha(Object p){
-        Vector<Object> linha = new Vector();
-        ProdutoDto produto = (ProdutoDto) p;
-        linha.add(produto.getId());
-        linha.add(produto.getNome());
-        linha.add(1);
-        linha.add(produto.getPreco());
-        /* Adiciona a linha a tabela */
-        linhas.add(linha);
-        
-        /* Atualiza a tabela */
-        fireTableDataChanged();
+        if(p != null){
+            
+            Vector<Object> linha = new Vector();
+            ProdutoDto produto = (ProdutoDto) p;
+            linha.add(produto.getId());
+            linha.add(produto.getNome());
+            linha.add(1);
+            linha.add(produto.getPreco());
+            /* Adiciona a linha a tabela */
+            linhas.add(linha);
+
+            /* Atualiza a tabela */
+            fireTableDataChanged();
+        }
     }
 
 }
