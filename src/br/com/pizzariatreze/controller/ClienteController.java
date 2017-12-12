@@ -19,7 +19,7 @@ public class ClienteController {
     public List<Object> listar() {
         Cliente cliente = new Cliente();
         return cliente.listar();
-    }    
+    }
 
     public boolean delete(int id) {
         Cliente cliente = new Cliente();
