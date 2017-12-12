@@ -246,18 +246,14 @@ public class CadastroPizza extends javax.swing.JFrame {
         ProdutoController produto = new ProdutoController();
         
         for(int i = 0; i< listAdd.getModel().getSize();i++){
-            //System.out.println(listAdd.getModel().getElementAt(i));
             String option = (String) listAdd.getModel().getElementAt(i);
             String[] optionSplit = option.split("(\\-)");
             ids.put(Integer.parseInt(optionSplit[0]), optionSplit[0]);
         }
         
         Collection c = ids.values();
-
-        //obtain an Iterator for Collection
         Iterator itr = c.iterator();
 
-        //iterate through TreeMap values iterator
         while(itr.hasNext()){
             composicao += itr.next();
             if(itr.hasNext())

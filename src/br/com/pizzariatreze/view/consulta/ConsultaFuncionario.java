@@ -9,6 +9,7 @@ import br.com.pizzariatreze.controller.FuncionarioController;
 import br.com.pizzariatreze.dto.FuncionarioDto;
 import br.com.pizzariatreze.tablemodel.FuncionarioTableModel;
 import br.com.pizzariatreze.util.Util;
+import br.com.pizzariatreze.view.editar.EditarFuncionario;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -291,8 +292,14 @@ public class ConsultaFuncionario extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         Integer id = (Integer) jTableFuncionario.getValueAt(jTableFuncionario.getSelectedRow(),0);
-        System.out.println(id);
-    }//GEN-LAST:event_btnEditarActionPerformed
+        try { 
+            EditarFuncionario ef = new EditarFuncionario(id);
+            ef.setVisible(true);
+            dispose();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao editar funcionario.");
+        }    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         Integer id = (Integer) jTableFuncionario.getValueAt(jTableFuncionario.getSelectedRow(),0);

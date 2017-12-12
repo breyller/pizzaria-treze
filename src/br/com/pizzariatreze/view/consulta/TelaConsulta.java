@@ -28,6 +28,7 @@ public class TelaConsulta extends javax.swing.JFrame {
         jButtonConsultaEstoque = new javax.swing.JButton();
         jButtonConsultarMesa = new javax.swing.JButton();
         jLabelVoltar = new javax.swing.JLabel();
+        btnPedidos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -76,6 +77,13 @@ public class TelaConsulta extends javax.swing.JFrame {
             }
         });
 
+        btnPedidos.setText("Pedidos");
+        btnPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPedidosMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -93,7 +101,8 @@ public class TelaConsulta extends javax.swing.JFrame {
                                     .addComponent(jButtonConsultaEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButtonConsultaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButtonConsultaFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonConsultarMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jButtonConsultarMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 295, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -107,13 +116,15 @@ public class TelaConsulta extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(44, 44, 44)
                 .addComponent(jButtonConsultaCliente)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonConsultarMesa)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonConsultaEstoque)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonConsultaFuncionario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnPedidos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addComponent(jLabelVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -181,6 +192,12 @@ public class TelaConsulta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void btnPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedidosMouseClicked
+        ConsultaPedido cp = new ConsultaPedido();
+        cp.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnPedidosMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -218,6 +235,7 @@ public class TelaConsulta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPedidos;
     private javax.swing.JButton jButtonConsultaCliente;
     private javax.swing.JButton jButtonConsultaEstoque;
     private javax.swing.JButton jButtonConsultaFuncionario;

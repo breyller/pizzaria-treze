@@ -9,6 +9,7 @@ import br.com.pizzariatreze.controller.MesaController;
 import br.com.pizzariatreze.dto.FuncionarioDto;
 import br.com.pizzariatreze.tablemodel.MesaTableModel;
 import br.com.pizzariatreze.util.Util;
+import br.com.pizzariatreze.view.editar.EditarMesa;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -290,7 +291,14 @@ public class ConsultaMesa extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         Integer id = (Integer) jTableMesa.getValueAt(jTableMesa.getSelectedRow(),0);
-        System.out.println(id);
+        try { 
+            EditarMesa em = new EditarMesa(id);
+            em.setVisible(true);
+            dispose();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao editar mesa.");
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed

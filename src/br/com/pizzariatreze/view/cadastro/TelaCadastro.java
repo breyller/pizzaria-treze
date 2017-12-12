@@ -30,6 +30,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         jButtonCadastrarFuncionario = new javax.swing.JButton();
         jButtonCadastrarIngrediente = new javax.swing.JButton();
         jButtonCadastrarProduto = new javax.swing.JButton();
+        btnCadastrarMesa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -78,6 +79,13 @@ public class TelaCadastro extends javax.swing.JFrame {
             }
         });
 
+        btnCadastrarMesa.setText("Mesas");
+        btnCadastrarMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarMesaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -99,7 +107,8 @@ public class TelaCadastro extends javax.swing.JFrame {
                                     .addComponent(jButtonCadastrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButtonCadastrarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButtonCadastrarIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonCadastrarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jButtonCadastrarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnCadastrarMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(289, 289, 289))))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -107,7 +116,9 @@ public class TelaCadastro extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(btnCadastrarMesa)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonCadastrarCliente)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonCadastrarFuncionario)
@@ -183,6 +194,12 @@ public class TelaCadastro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void btnCadastrarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarMesaActionPerformed
+        CadastroMesa cm = new CadastroMesa();
+        cm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnCadastrarMesaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -219,6 +236,7 @@ public class TelaCadastro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCadastrarMesa;
     private javax.swing.JButton jButtonCadastrarCliente;
     private javax.swing.JButton jButtonCadastrarFuncionario;
     private javax.swing.JButton jButtonCadastrarIngrediente;
