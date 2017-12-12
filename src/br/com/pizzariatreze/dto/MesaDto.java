@@ -9,6 +9,7 @@ public class MesaDto {
     private int qtdLugares;
     private ArrayList<Integer> codReserva = new ArrayList<Integer>();
     protected List alterado;
+    private int status;
     
     public MesaDto() {
         this.alterado = new ArrayList<>();
@@ -71,5 +72,13 @@ public class MesaDto {
 
     public List getAlterado() {
         return this.alterado;
+    }
+    
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

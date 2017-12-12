@@ -8,6 +8,7 @@ public class ReservaDto {
     private ArrayList<MesaDto> composicao;
     private int status;
     private String nome;
+    private String composicaoString;
 
     public int getId() {
         return id;
@@ -59,5 +60,13 @@ public class ReservaDto {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    
+    public String getComposicaoString() {
+        return composicaoString;
+    }
+
+    public void setComposicao(String composicao) {
+        this.composicaoString = composicao;
     }
 }

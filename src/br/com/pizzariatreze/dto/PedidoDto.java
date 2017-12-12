@@ -1,6 +1,7 @@
 package br.com.pizzariatreze.dto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PedidoDto {
     private int id;
@@ -13,13 +14,21 @@ public class PedidoDto {
     private FuncionarioDto funcionario;
     private ArrayList<ProdutoDto> composicao;
     private String composicaoString;
-
+    protected List alterado;
+    
+    public PedidoDto() {
+        this.alterado = new ArrayList<>();
+        this.composicao = new ArrayList<ProdutoDto>();
+    }
+    
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+        
+        if(!this.alterado.contains("id")) this.alterado.add("id");
     }
 
     public String getData() {
@@ -28,6 +37,8 @@ public class PedidoDto {
 
     public void setData(String data) {
         this.data = data;
+        
+        if(!this.alterado.contains("data")) this.alterado.add("data");
     }
 
     public int getStatus() {
@@ -36,6 +47,8 @@ public class PedidoDto {
 
     public void setStatus(int status) {
         this.status = status;
+        
+        if(!this.alterado.contains("status")) this.alterado.add("status");
     }
 
     public String getDescricao() {
@@ -44,6 +57,8 @@ public class PedidoDto {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+        
+        if(!this.alterado.contains("descricao")) this.alterado.add("descricao");
     }
 
     public int getTipo() {
@@ -52,6 +67,8 @@ public class PedidoDto {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
+        
+        if(!this.alterado.contains("tipo")) this.alterado.add("tipo");
     }
 
     public double getPreco() {
@@ -60,6 +77,8 @@ public class PedidoDto {
 
     public void setPreco(double preco) {
         this.preco = preco;
+        
+        if(!this.alterado.contains("preco")) this.alterado.add("preco");
     }
 
     public ClienteDto getCliente() {
@@ -68,6 +87,8 @@ public class PedidoDto {
 
     public void setCliente(ClienteDto cliente) {
         this.cliente = cliente;
+        
+        if(!this.alterado.contains("id_cliente")) this.alterado.add("id_cliente");
     }
 
     public FuncionarioDto getFuncionario() {
@@ -76,6 +97,8 @@ public class PedidoDto {
 
     public void setFuncionario(FuncionarioDto funcionario) {
         this.funcionario = funcionario;
+        
+        if(!this.alterado.contains("id_funcionario")) this.alterado.add("id_funcionario");
     }
 
     public ArrayList<ProdutoDto> getComposicao() {
@@ -83,11 +106,17 @@ public class PedidoDto {
     }
 
     public void setComposicao(ProdutoDto composicao) {
-        this.composicao.add(composicao);
+        if(composicao != null) {
+            this.composicao.add(composicao);
+
+            if(!this.alterado.contains("composicao")) this.alterado.add("composicao");
+        }
     }
     
     public void deleteComposicaoByPos(int posicao) {
         this.composicao.remove(posicao);
+        
+        if(!this.alterado.contains("composicao")) this.alterado.add("composicao");
     }
 
     public void deleteComposicaoByIdProduto(int idProduto) {
@@ -96,13 +125,21 @@ public class PedidoDto {
                 deleteComposicaoByPos(i);
             }
         }
+        
+        if(!this.alterado.contains("composicao")) this.alterado.add("composicao");
     }    
 
     public void setComposicao(String composicao) {
         this.composicaoString = composicao;
+        
+        if(!this.alterado.contains("composicao")) this.alterado.add("composicao");
     }
 
     public String getComposicaoString() {
         return this.composicaoString;
+    }
+
+    public List getAlterado(){
+        return alterado;
     }
 }
